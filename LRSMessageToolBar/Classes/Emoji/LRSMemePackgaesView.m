@@ -68,7 +68,7 @@
 
         UIButton *coverButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
         [coverButton setImage:[LRSMessageToolBarHelper imageNamed:configure.coverImageName] forState:(UIControlStateNormal)];
-        coverButton.backgroundColor = [LRSMessageToolBarHelper colorNamed:@"Color_192"];
+        coverButton.backgroundColor = [LRSMessageToolBarHelper colorNamed:@"Color_244"];
         [barContentView addSubview:coverButton];
         [coverButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(60 * index);
