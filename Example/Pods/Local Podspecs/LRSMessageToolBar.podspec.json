@@ -1,0 +1,61 @@
+{
+  "name": "LRSMessageToolBar",
+  "version": "0.1.0",
+  "summary": "A short description of LRSMessageToolBar.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/刘sama/LRSMessageToolBar",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "刘sama": "junchen.liu@jiamiantech.com"
+  },
+  "source": {
+    "git": "https://github.com/刘sama/LRSMessageToolBar.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "11.0"
+  },
+  "resource_bundles": {
+    "LRSMessageToolBar": [
+      "LRSMessageToolBar/Assets/**"
+    ]
+  },
+  "subspecs": [
+    {
+      "name": "Emoji",
+      "source_files": "LRSMessageToolBar/Classes/Emoji/**/*",
+      "resource_bundles": {
+        "LRSMessageToolBar": [
+          "LRSMessageToolBar/Assets/*"
+        ]
+      },
+      "dependencies": {
+        "Masonry": [
+          "~> 1.1.0"
+        ],
+        "LRSMessageToolBar/Helper": [
+
+        ]
+      }
+    },
+    {
+      "name": "Helper",
+      "source_files": "LRSMessageToolBar/Classes/Helper/**/*"
+    },
+    {
+      "name": "InputBar",
+      "source_files": "LRSMessageToolBar/Classes/InputBar/**/*",
+      "dependencies": {
+        "Masonry": [
+          "~> 1.1.0"
+        ],
+        "LRSMessageToolBar/Helper": [
+
+        ]
+      }
+    }
+  ]
+}

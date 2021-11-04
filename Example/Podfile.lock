@@ -1,0 +1,25 @@
+PODS:
+  - LRSMessageToolBar/Emoji (0.1.0):
+    - LRSMessageToolBar/Helper
+    - Masonry (~> 1.1.0)
+  - LRSMessageToolBar/Helper (0.1.0)
+  - Masonry (1.1.0)
+
+DEPENDENCIES:
+  - LRSMessageToolBar/Emoji (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - Masonry
+
+EXTERNAL SOURCES:
+  LRSMessageToolBar:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  LRSMessageToolBar: ffff4c593284e624c5a8d869bf62895d2e3a38fc
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+
+PODFILE CHECKSUM: de8bc5f68c056249a2a06183487f8f1fd7d2dd3b
+
+COCOAPODS: 1.10.2

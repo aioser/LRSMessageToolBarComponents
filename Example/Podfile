@@ -1,16 +1,7 @@
 use_frameworks!
 
-platform :ios, '9.0'
+platform :ios, '11.0'
 
 target 'LRSMessageToolBar_Example' do
-  pod 'LRSMessageToolBar', :path => '../'
-
-  target 'LRSMessageToolBar_Tests' do
-    inherit! :search_paths
-
-    pod 'Quick', '~> 2.2.0'
-    pod 'Nimble', '~> 8.0.7'
-    pod 'FBSnapshotTestCase' , '~> 2.1.4'
-    pod 'Nimble-Snapshots' , '~> 8.0.0'
-  end
+  pod 'LRSMessageToolBar/Emoji', :path => '../'
 end
