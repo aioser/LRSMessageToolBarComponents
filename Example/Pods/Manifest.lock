@@ -3,23 +3,31 @@ PODS:
     - LRSMessageToolBar/Helper
     - Masonry (~> 1.1.0)
   - LRSMessageToolBar/Helper (0.1.0)
+  - LRSMessageToolBar/InputBar (0.1.0):
+    - LRSMessageToolBar/Helper
+    - Masonry (~> 1.1.0)
   - Masonry (1.1.0)
+  - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - LRSMessageToolBar/Emoji (from `../`)
+  - LRSMessageToolBar/InputBar (from `../`)
+  - SnapKit
 
 SPEC REPOS:
   trunk:
     - Masonry
+    - SnapKit
 
 EXTERNAL SOURCES:
   LRSMessageToolBar:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LRSMessageToolBar: ffff4c593284e624c5a8d869bf62895d2e3a38fc
+  LRSMessageToolBar: 8b4559f7ef80732351cc202883fcb486c2a091c8
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: de8bc5f68c056249a2a06183487f8f1fd7d2dd3b
+PODFILE CHECKSUM: 7d322af392f222544e461b4dbc4499c51eb650eb
 
 COCOAPODS: 1.10.2

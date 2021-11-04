@@ -23,15 +23,15 @@
     bar.configure = configure;
     [bar loadBasicSubviews];
     [bar configureSubviews];
+    bar.mode = LRSMessageToolBarModeTextInput;
     return bar;
 }
 
 - (void)configureSubviews {
     [self.recordingBtn setBackgroundImage:[self.configure.recordConfigure.stateConfigure imageForState:UIControlStateNormal] forState:UIControlStateNormal];
     [self.recordingBtn setBackgroundImage:[self.configure.recordConfigure.stateConfigure imageForState:UIControlStateSelected] forState:UIControlStateSelected];
-
-    [self.modeSwitchButton setBackgroundImage:[self.configure.modeSwitchConfigure.stateConfigure imageForState:UIControlStateNormal] forState:UIControlStateNormal];
-    [self.modeSwitchButton setBackgroundImage:[self.configure.modeSwitchConfigure.stateConfigure imageForState:UIControlStateSelected] forState:UIControlStateSelected];
+    [self.recordingBtn setAttributedTitle:[self.configure.recordConfigure.stateConfigure titleForState:UIControlStateNormal] forState:UIControlStateNormal];
+    [self.recordingBtn setAttributedTitle:[self.configure.recordConfigure.stateConfigure titleForState:UIControlStateSelected] forState:UIControlStateSelected];
 
     [self.imagePickButton setImage:[self.configure.buttonConfigure.imagePickerButtonStateConfigure imageForState:UIControlStateNormal] forState:(UIControlStateNormal)];
 
@@ -109,13 +109,21 @@
 }
 
 - (void)setMode:(LRSMessageToolBarMode)mode {
-    self.recordingBtn.hidden = mode == LRSMessageToolBarModeTextInput;
-    self.modeSwitchButton.selected = mode == LRSMessageToolBarModeRecord;
+    _mode = mode;
+    [self onModeSwitch:mode];
 }
 
-// 还原录音按钮状态
-- (void)resetRecordBtnBackGroundImg {
-    self.recordingBtn.selected = false;
+- (void)modeSwitchClick:(UIButton *)button {
+    self.mode = !_mode;
+}
+
+- (void)onModeSwitch:(LRSMessageToolBarMode)mode {
+    self.recordingBtn.hidden = mode == LRSMessageToolBarModeTextInput;
+    self.modeSwitchButton.selected = !self.recordingBtn.hidden;
+    self.inputTextView.hidden = !self.recordingBtn.hidden;
+    self.faceButton.hidden = self.inputTextView.hidden;
+    [self.modeSwitchButton setBackgroundImage:[self.configure.modeSwitchConfigure.stateConfigure imageForState:mode == LRSMessageToolBarModeTextInput ? UIControlStateNormal : UIControlStateSelected] forState:UIControlStateNormal];
+
 }
 
 - (UIView *)bottomLine {
@@ -126,10 +134,9 @@
     return _bottomLine;
 }
 
-
-- (XHMessageTextView *)inputTextView {
+- (LRSPlaceholderTextView *)inputTextView {
     if (!_inputTextView) {
-        _inputTextView = [XHMessageTextView new];
+        _inputTextView = [[LRSPlaceholderTextView alloc] initWithFrame:(CGRectZero)];
         _inputTextView.font = [UIFont systemFontOfSize:16];
         _inputTextView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         _inputTextView.scrollEnabled = YES;
@@ -144,7 +151,7 @@
 
 - (UIButton *)imagePickButton {
     if (!_imagePickButton) {
-        self.imagePickButton = [UIButton buttonWithType:(UIButtonTypeSystem)];
+        self.imagePickButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
 //        [_imagePickButton addTarget:self action:@selector(onImagePickButtonClick:) forControlEvents:(UIControlEventTouchUpInside)];
     }
     return _imagePickButton;
@@ -153,7 +160,7 @@
 - (UIButton *)modeSwitchButton {
     if (!_modeSwitchButton) {
         _modeSwitchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [_modeSwitchButton addTarget:self action:@selector(msgSendClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_modeSwitchButton addTarget:self action:@selector(modeSwitchClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _modeSwitchButton;
 }
@@ -168,29 +175,15 @@
     return _faceButton;
 }
 
-
-
-- (IconTextModel *)buildBasicTextModel {
-    //  录音按钮
-    IconTextModel *iconTextModel = [[IconTextModel alloc] init];
-    iconTextModel.spaceWidth = 4;
-    iconTextModel.labelText = @"按住 说话";
-    iconTextModel.topBottomMargin = 10;
-    iconTextModel.iconW = 0;
-    iconTextModel.font = [UIFont boldSystemFontOfSize:16];
-    return iconTextModel;
-}
-
-- (KeyboardRecordButton *)recordingBtn {
+- (LRSMessageToolBarRecordButton *)recordingBtn {
     if (!_recordingBtn) {
-        _recordingBtn = [KeyboardRecordButton buttonWithType:UIButtonTypeCustom];
+        _recordingBtn = [LRSMessageToolBarRecordButton buttonWithType:UIButtonTypeCustom];
         _recordingBtn.backgroundColor = [UIColor clearColor];
         _recordingBtn.layer.masksToBounds = YES;
 
         _recordingBtn.clickTime = 0;
         _recordingBtn.hidden = YES;
         _recordingBtn.selected = NO;
-        _recordingBtn.iconTextModel = [self buildBasicTextModel];
     }
     return _recordingBtn;
 }

@@ -27,11 +27,6 @@
     {
       "name": "Emoji",
       "source_files": "LRSMessageToolBar/Classes/Emoji/**/*",
-      "resource_bundles": {
-        "LRSMessageToolBar": [
-          "LRSMessageToolBar/Assets/*"
-        ]
-      },
       "dependencies": {
         "Masonry": [
           "~> 1.1.0"
@@ -43,7 +38,12 @@
     },
     {
       "name": "Helper",
-      "source_files": "LRSMessageToolBar/Classes/Helper/**/*"
+      "source_files": "LRSMessageToolBar/Classes/Helper/**/*",
+      "resource_bundles": {
+        "LRSMessageToolBar": [
+          "LRSMessageToolBar/Assets/*"
+        ]
+      }
     },
     {
       "name": "InputBar",

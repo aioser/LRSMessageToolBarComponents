@@ -17,6 +17,11 @@
 #import "LRSMessageToolBarPageControl.h"
 #import "LRSMemePackageConfigure.h"
 #import "LRSMessageToolBarHelper.h"
+#import "LRSMessageToolBarConfigure.h"
+#import "LRSMessageToolBarDefines.h"
+#import "LRSMessageToolBarRecordButton.h"
+#import "LRSMessageToolsBar.h"
+#import "LRSPlaceholderTextView.h"
 
 FOUNDATION_EXPORT double LRSMessageToolBarVersionNumber;
 FOUNDATION_EXPORT const unsigned char LRSMessageToolBarVersionString[];

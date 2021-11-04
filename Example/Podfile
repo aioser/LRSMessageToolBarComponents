@@ -3,5 +3,7 @@ use_frameworks!
 platform :ios, '11.0'
 
 target 'LRSMessageToolBar_Example' do
+  pod 'LRSMessageToolBar/InputBar', :path => '../'
   pod 'LRSMessageToolBar/Emoji', :path => '../'
+  pod 'SnapKit'
 end

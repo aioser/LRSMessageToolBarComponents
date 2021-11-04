@@ -1,34 +1,28 @@
-//
-//  KeyboardRecordButton.m
-//  LangRen
-//
-//  Created by 酒诗 on 2017/2/8.
-//  Copyright © 2017年 langrengame.com. All rights reserved.
-//
 
-#import "KeyboardRecordButton.h"
 
-@interface KeyboardRecordButton ()
+#import "LRSMessageToolBarRecordButton.h"
+
+@interface LRSMessageToolBarRecordButton ()
 
 @property (nonatomic, strong, readwrite) NSTimer *timer;
 @property (nonatomic, assign, readwrite) BOOL inArea; //  在区域内
 
 @end
 
-@implementation KeyboardRecordButton
+@implementation LRSMessageToolBarRecordButton
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
-    @weakify(self);
     [self.timer invalidate];
-    NSTimer *timer = [NSTimer bk_scheduledTimerWithTimeInterval:self.clickTime block:^(NSTimer *timer) {
-        @strongify(self);
+    __weak typeof(self) weakSelf = self;
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.clickTime repeats:false block:^(NSTimer * _Nonnull timer) {
         NSLog(@"Touch Began");
-        if (self.touchBegan) {
-            self.touchBegan();
+        if (weakSelf.touchBegan) {
+            weakSelf.touchBegan(weakSelf);
         }
+        weakSelf.selected = true;
         [timer invalidate];
-        self.timer = nil;
-    } repeats:YES];
+        weakSelf.timer = nil;
+    }];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     self.inArea = YES;
     self.timer = timer;
@@ -45,12 +39,12 @@
         if (self.inArea) {
             if (self.dragOutside) {
                 NSLog(@"Drag Outside");
-                self.dragOutside();
+                self.dragOutside(self);
             }
         } else {
             if (self.dragEnter) {
                 NSLog(@"Drag Enter");
-                self.dragEnter();
+                self.dragEnter(self);
             }
         }
         self.inArea = isInArea;
@@ -66,14 +60,15 @@
     if (self.inArea) {
         NSLog(@"Touch End");
         if (self.touchEnd) {
-            self.touchEnd();
+            self.touchEnd(self);
         }
     } else {
         NSLog(@"Drag Outside Release");
         if (self.dragOutsideRelease) {
-            self.dragOutsideRelease();
+            self.dragOutsideRelease(self);
         }
     }
+    self.selected = false;
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
@@ -84,8 +79,9 @@
     }
     NSLog(@"Touch Cancell");
     if (self.touchEnd) {
-        self.touchEnd();
+        self.touchEnd(self);
     }
+    self.selected = false;
 }
 
 - (void)dealloc {

@@ -37,14 +37,14 @@ TODO: Add long description of the pod here.
   }
   s.subspec 'Emoji' do |emoji|
       emoji.source_files = 'LRSMessageToolBar/Classes/Emoji/**/*'
-      emoji.resource_bundles = {
-          'LRSMessageToolBar' => ['LRSMessageToolBar/Assets/*']
-      }
       emoji.dependency 'Masonry', '~> 1.1.0'
       emoji.dependency 'LRSMessageToolBar/Helper'
   end
   s.subspec 'Helper' do |helper|
       helper.source_files = 'LRSMessageToolBar/Classes/Helper/**/*'
+      helper.resource_bundles = {
+          'LRSMessageToolBar' => ['LRSMessageToolBar/Assets/*']
+      }
   end
   s.subspec 'InputBar' do |input|
       input.source_files = 'LRSMessageToolBar/Classes/InputBar/**/*'

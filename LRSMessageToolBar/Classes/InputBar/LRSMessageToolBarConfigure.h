@@ -51,6 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LRSMessageToolBarButtonStateConfigure : NSObject
 - (void)setImage:(UIImage *)image forState:(UIControlState)state;
 - (UIImage *)imageForState:(UIControlState)state;
+
+- (void)setTitle:(NSAttributedString *)title forState:(UIControlState)state;
+- (NSAttributedString *)titleForState:(UIControlState)state;
 @end
 
 NS_ASSUME_NONNULL_END
