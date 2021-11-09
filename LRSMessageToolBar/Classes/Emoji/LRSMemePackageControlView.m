@@ -1,10 +1,4 @@
-//
-//  EmojiKeyBoardView.m
-//  EmojiKeyBoard
-//
-//  Created by Ayush on 09/05/13.
-//  Copyright (c) 2013 Ayush. All rights reserved.
-//
+
 
 #import "LRSMemePackageControlView.h"
 #import "LRSMemeSinglePage.h"
@@ -37,7 +31,7 @@
     return self;
 }
 
-- (void)buildUIWithTotoalHeight:(CGFloat)controlBoardHeight {
+- (void)buildUIWithTotalHeight:(CGFloat)memePackageBoardHeight {
     NSInteger row = self.rows;
     NSInteger column = self.columns;
     NSArray<LRSMemePackageConfigureItem *> *emojis = self.configures;
@@ -79,7 +73,7 @@
 
     CGSize itemSize = [LRSMessageToolBarHelper sizeForEmojiKey:@"default"];
     CGFloat xSpacing = ([self viewWidth] - column * itemSize.width - (self.scrollViewEdgeInsets.left + self.scrollViewEdgeInsets.right)) / (column - 1);
-    CGFloat memePackageBoardHeight = controlBoardHeight - pageControlSize.height - (self.scrollViewEdgeInsets.top + self.scrollViewEdgeInsets.bottom);
+    memePackageBoardHeight = memePackageBoardHeight - pageControlSize.height - (self.scrollViewEdgeInsets.top + self.scrollViewEdgeInsets.bottom);
     CGFloat ySpacing = (memePackageBoardHeight - row * itemSize.height) / (row - 1);
     for (NSInteger index = 0; index < lists.count; ++ index) {
         NSArray<LRSMemePackageConfigureItem *> *emojis = lists[index];

@@ -34,13 +34,14 @@ class ViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         inputButton.addTarget(self, action: #selector(inputAction), for: .touchUpInside)
+
         // Do any additional setup after loading the view, typically from a nib.
     }
 
 
     @objc func emojiAction() {
         let emojis = LRSMessageToolBarHelper.allEmojis()
-        let contentView = LRSMemePackgaesView(frame: CGRect(x: 0, y: LRSMessageToolBarHelper.screenHeight() - LRSMemePackgaesView.boardHeight(), width: LRSMessageToolBarHelper.screenWidth(), height: LRSMemePackgaesView.boardHeight()), configures: emojis)
+        let contentView = LRSMemePackagesView(frame: CGRect(x: 0, y: LRSMessageToolBarHelper.screenHeight() - LRSMemePackagesView.boardHeight(), width: LRSMessageToolBarHelper.screenWidth(), height: LRSMemePackagesView.boardHeight()), configures: emojis)
         contentView.backspaceHandler = { _ in
             print("backspaceHandler")
         }
@@ -52,7 +53,7 @@ class ViewController: UIViewController {
     }
 
     @objc func inputAction() {
-        let inputView = LRSMessageToolsBar.toolBar(with: LRSMessageToolBarConfigure())
+        let inputView = LRSMessageInputBar.toolBar(with: LRSMessageToolBarConfigure())
         inputView.frame = CGRect(x: 0, y: LRSMessageToolBarHelper.screenHeight() - 200, width: LRSMessageToolBarHelper.screenWidth(), height: 200)
         view.addSubview(inputView)
     }

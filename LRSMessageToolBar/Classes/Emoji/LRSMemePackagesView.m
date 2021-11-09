@@ -1,12 +1,12 @@
 
 
-#import "LRSMemePackgaesView.h"
+#import "LRSMemePackagesView.h"
 #import "LRSMemePackageControlView.h"
 #import "LRSMemePackageConfigure.h"
-#import <LRSMessageToolBarHelper.h>
+#import "LRSMessageToolBarHelper.h"
 #import <MASonry/MASonry.h>
 
-@interface LRSMemePackgaesView () <UIScrollViewDelegate>
+@interface LRSMemePackagesView () <UIScrollViewDelegate>
 @property (nonatomic, strong) UIButton *sendEmojiButton;
 @property (nonatomic, strong) UIScrollView *mainScrollView;
 @property (nonatomic, strong) UIScrollView *barScrollView;
@@ -14,7 +14,7 @@
 @end
 
 
-@implementation LRSMemePackgaesView
+@implementation LRSMemePackagesView
 
 - (instancetype)initWithFrame:(CGRect)frame configures:(NSArray<LRSMemePackageConfigure *> *)configures {
     if (self = [super initWithFrame:frame]) {
@@ -55,7 +55,7 @@
         [mainContentView addSubview:emojiView];
         emojiView.itemHandler = self.itemHandler;
         emojiView.backspaceHandler = self.backspaceHandler;
-        [emojiView buildUIWithTotoalHeight:LRSMemePackgaesView.memeBoardHeight];
+        [emojiView buildUIWithTotalHeight:LRSMemePackagesView.memeBoardHeight];
         [emojiView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo([self screenWidth] * index);
             make.top.bottom.equalTo(mainContentView);
@@ -63,7 +63,7 @@
             if (index == configures.count - 1) {
                 make.right.equalTo(mainContentView);
             }
-            make.height.mas_equalTo(LRSMemePackgaesView.memeBoardHeight);
+            make.height.mas_equalTo(LRSMemePackagesView.memeBoardHeight);
         }];
 
         UIButton *coverButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -77,15 +77,15 @@
             if (index == configures.count - 1) {
                 make.right.equalTo(barContentView);
             }
-            make.height.mas_equalTo(LRSMemePackgaesView.actionButtonHeight);
+            make.height.mas_equalTo(LRSMemePackagesView.actionButtonHeight);
         }];
     }
 
     [self.sendEmojiButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self);
-        make.bottom.mas_equalTo(-LRSMemePackgaesView.safeAreaHeight);
+        make.bottom.mas_equalTo(-LRSMemePackagesView.safeAreaHeight);
         make.width.mas_equalTo(60);
-        make.height.mas_equalTo(LRSMemePackgaesView.actionButtonHeight);
+        make.height.mas_equalTo(LRSMemePackagesView.actionButtonHeight);
     }];
 }
 

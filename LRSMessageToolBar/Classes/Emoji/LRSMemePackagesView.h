@@ -4,9 +4,9 @@
 
 @class LRSMemePackageConfigureItem;
 @class LRSMemePackageConfigure;
-@class LRSMemePackgaesView;
+@class LRSMemePackagesView;
 NS_ASSUME_NONNULL_BEGIN
-@interface LRSMemePackgaesView : UIView <NSObject>
+@interface LRSMemePackagesView : UIView <NSObject>
 - (instancetype)initWithFrame:(CGRect)frame configures:(NSArray<LRSMemePackageConfigure *> *)configures;
 
 + (CGFloat)boardHeight;

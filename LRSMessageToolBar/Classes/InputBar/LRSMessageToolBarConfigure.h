@@ -15,6 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LRSMessageToolBarConfigure : NSObject
++ (instancetype)default;
 @property (nonatomic, strong, readonly) LRSMessageToolBarRecordButtonConfigure *recordConfigure;
 @property (nonatomic, strong, readonly) LRSMessageToolBarInputTextViewConfigure *textViewConfigure;
 @property (nonatomic, strong, readonly) LRSMessageToolBarActionButtonConfigure *buttonConfigure;

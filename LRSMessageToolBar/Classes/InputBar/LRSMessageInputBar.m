@@ -5,21 +5,21 @@
 //  Created by sama 刘 on 2021/10/27.
 //
 
-#import "LRSMessageToolsBar.h"
+#import "LRSMessageInputBar.h"
 #import <MASonry/MASonry.h>
 #import "LRSMessageToolBarHelper.h"
 #import "LRSMessageToolBarConfigure.h"
 
-@interface LRSMessageToolsBar()
+@interface LRSMessageInputBar()
 @property (nonatomic, strong) LRSMessageToolBarConfigure *configure;
 @property (nonatomic, strong) MASConstraint *textViewHeight;
 @end
 
-@implementation LRSMessageToolsBar
+@implementation LRSMessageInputBar
 @synthesize mode = _mode;
 
 + (instancetype)toolBarWithConfigure:(LRSMessageToolBarConfigure *)configure {
-    LRSMessageToolsBar *bar = [[self alloc] init];
+    LRSMessageInputBar *bar = [[self alloc] init];
     bar.configure = configure;
     [bar loadBasicSubviews];
     [bar configureSubviews];
@@ -41,29 +41,6 @@
 
     self.recordingBtn.areaY = self.configure.textViewConfigure.minHeight;
 
-}
-
-- (void)addActions {
-
-//    __weak typeof(self) weakSelf = self;
-//    self.recordingBtn.touchBegan = ^() {
-//        weakSelf.recordingBtn.selected = YES;
-//        [weakSelf startRecording:weakSelf.recordingBtn];
-//    };
-//    self.recordingBtn.touchEnd = ^() {
-//        weakSelf.recordingBtn.selected = NO;
-//        [weakSelf endRecording:weakSelf.recordingBtn];
-//    };
-//    self.recordingBtn.dragEnter = ^() {
-//        [weakSelf dragEnterRecordScope:weakSelf.recordingBtn];
-//    };
-//    self.recordingBtn.dragOutside = ^() {
-//        [weakSelf dragExitRecordScope:weakSelf.recordingBtn];
-//    };
-//    self.recordingBtn.dragOutsideRelease = ^() {
-//        weakSelf.recordingBtn.selected = NO;
-//        [weakSelf cancelRecording:weakSelf.recordingBtn];
-//    };
 }
 
 - (void)loadBasicSubviews {

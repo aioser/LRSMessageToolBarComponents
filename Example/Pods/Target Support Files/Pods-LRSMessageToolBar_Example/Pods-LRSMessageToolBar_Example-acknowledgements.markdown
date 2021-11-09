@@ -1,7 +1,7 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## LRSMessageToolBar
+## LRSMessageToolBarComponents
 
 Copyright (c) 2021 刘sama <junchen.liu@jiamiantech.com>
 

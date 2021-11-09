@@ -18,12 +18,11 @@ typedef NS_ENUM(NSUInteger, LRSMessageToolBarMode) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LRSMessageToolsBar : UIView
+@interface LRSMessageInputBar : UIView
 
 + (instancetype)toolBarWithConfigure:(LRSMessageToolBarConfigure *)configure;
 
 @property (nonatomic) LRSMessageToolBarMode mode;
-@property (nonatomic, assign) CGFloat previousTextViewContentHeight; // 上一次inputTextView的contentSize.height
 @property (nonatomic, strong) UIButton *modeSwitchButton;
 @property (nonatomic, strong) LRSMessageToolBarRecordButton *recordingBtn;
 @property (nonatomic, strong) LRSPlaceholderTextView *inputTextView;

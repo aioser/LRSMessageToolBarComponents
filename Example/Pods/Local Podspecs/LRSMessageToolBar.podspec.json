@@ -1,7 +1,7 @@
 {
-  "name": "LRSMessageToolBar",
+  "name": "LRSMessageToolBarComponents",
   "version": "0.1.0",
-  "summary": "A short description of LRSMessageToolBar.",
+  "summary": "A short description of LRSMessageToolBarComponents.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/刘sama/LRSMessageToolBar",
   "license": {
@@ -17,11 +17,6 @@
   },
   "platforms": {
     "ios": "11.0"
-  },
-  "resource_bundles": {
-    "LRSMessageToolBar": [
-      "LRSMessageToolBar/Assets/**"
-    ]
   },
   "subspecs": [
     {

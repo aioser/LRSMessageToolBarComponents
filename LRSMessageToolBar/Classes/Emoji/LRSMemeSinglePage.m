@@ -8,7 +8,6 @@
 
 #import "LRSMemeSinglePage.h"
 #import "LRSMessageToolBarHelper.h"
-#import "LRSMemePackageConfigure.h"
 #import <MASonry/MASonry.h>
 
 #define BACKSPACE_BUTTON_TAG 10
@@ -58,7 +57,7 @@
         UIButton *button = [self buildButtonWithIndex:row column:column];
         button.titleLabel.font = [UIFont fontWithName:@"Apple color emoji" size:BUTTON_FONT_SIZE];
         button.tag = 100 + index;
-        LRSMemePackageConfigureItem *info = [self.emojis objectAtIndex:index];
+        LRSMemePackageConfigureItem *info = self.emojis[index];
         [button setTitle:info.emojiValue forState:UIControlStateNormal];
     }
     //
@@ -87,7 +86,7 @@
 
     NSInteger tag = button.tag - 100;
     if (tag >= 0 && tag < self.emojis.count) {
-        LRSMemePackageConfigureItem *info = [self.emojis objectAtIndex:tag];
+        LRSMemePackageConfigureItem *info = self.emojis[(NSUInteger) tag];
         self.itemHandler(self, info);
     }
 }

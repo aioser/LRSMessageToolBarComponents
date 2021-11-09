@@ -30,11 +30,8 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '11.0'
 
-  #s.source_files = 'LRSMessageToolBar/Classes/**/*'
+  s.default_subspec = 'Core'
 
-  s.resource_bundles = {
-     'LRSMessageToolBar' => ['LRSMessageToolBar/Assets/**']
-  }
   s.subspec 'Emoji' do |emoji|
       emoji.source_files = 'LRSMessageToolBar/Classes/Emoji/**/*'
       emoji.dependency 'Masonry', '~> 1.1.0'
@@ -50,5 +47,11 @@ TODO: Add long description of the pod here.
       input.source_files = 'LRSMessageToolBar/Classes/InputBar/**/*'
       input.dependency 'Masonry', '~> 1.1.0'
       input.dependency 'LRSMessageToolBar/Helper'
+  end
+  s.subspec 'Core' do |core|
+      core.source_files = 'LRSMessageToolBar/Classes/Core/**/{*.h,*.m,*.swift}'
+      core.dependency 'LRSMessageToolBar/InputBar'
+      core.dependency 'LRSMessageToolBar/Emoji'
+      core.dependency 'LRSMessageToolBar/Helper'
   end
 end

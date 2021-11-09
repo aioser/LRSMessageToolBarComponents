@@ -20,6 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) LRSMemePackageItemsHandler itemHandler;
 @property (nonatomic, copy) LRSMemePackageBackspaceHandler backspaceHandler;
 
-- (void)buildUIWithTotoalHeight:(CGFloat)memePackageBoardHeight;
+- (void)buildUIWithTotalHeight:(CGFloat)memePackageBoardHeight;
 @end
 NS_ASSUME_NONNULL_END

@@ -10,7 +10,6 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self build];
         [self setup];
         [self addSubview:self.placeHolderLabel];
     }
@@ -69,22 +68,6 @@
 
     _placeHolderTextColor = [UIColor lightGrayColor];
     _placeHolder = @"";
-}
-
-- (void)build {
-    self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.scrollIndicatorInsets = UIEdgeInsetsMake(10.0f, 0.0f, 10.0f, 8.0f);
-    self.contentInset = UIEdgeInsetsZero;
-    self.scrollEnabled = YES;
-    self.scrollsToTop = NO;
-    self.userInteractionEnabled = YES;
-    self.font = [UIFont systemFontOfSize:16.0f];
-    self.textColor = [UIColor blackColor];
-    self.backgroundColor = [UIColor whiteColor];
-    self.keyboardAppearance = UIKeyboardAppearanceDefault;
-    self.keyboardType = UIKeyboardTypeDefault;
-    self.returnKeyType = UIReturnKeyDefault;
-    self.textAlignment = NSTextAlignmentLeft;
 }
 
 - (void)dealloc {

@@ -13,11 +13,11 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		87E941F1273A71800066BD70 /* LRSMessageToolBarComponents.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 87E941F0273A71800066BD70 /* LRSMessageToolBarComponents.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0F0E6193E3BBC51B1D480795 /* Pods-LRSMessageToolBar_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LRSMessageToolBar_Example.debug.xcconfig"; path = "Target Support Files/Pods-LRSMessageToolBar_Example/Pods-LRSMessageToolBar_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		33EB8CC0F9FC9F416FAF782E /* LRSMessageToolBar.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LRSMessageToolBar.podspec; path = ../LRSMessageToolBar.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		4D5469C8662FDBC7E5CBBBBF /* Pods_LRSMessageToolBar_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LRSMessageToolBar_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* LRSMessageToolBar_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LRSMessageToolBar_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -30,6 +30,7 @@
 		73A233453EF39C853168ADE3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		7FCA1CE01AC29092010D4427 /* Pods-LRSMessageToolBar_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LRSMessageToolBar_Tests.debug.xcconfig"; path = "Target Support Files/Pods-LRSMessageToolBar_Tests/Pods-LRSMessageToolBar_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		8739773027326F1D0091D7C8 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
+		87E941F0273A71800066BD70 /* LRSMessageToolBarComponents.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LRSMessageToolBarComponents.podspec; path = ../LRSMessageToolBarComponents.podspec; sourceTree = "<group>"; };
 		9520F1D35C11BB53F5F07795 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		E64B7482AD09C3AF8BEB18E6 /* Pods-LRSMessageToolBar_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LRSMessageToolBar_Tests.release.xcconfig"; path = "Target Support Files/Pods-LRSMessageToolBar_Tests/Pods-LRSMessageToolBar_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F12FCF94694AF5EA6C661FD6 /* Pods_LRSMessageToolBar_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LRSMessageToolBar_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,7 +113,7 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				33EB8CC0F9FC9F416FAF782E /* LRSMessageToolBar.podspec */,
+				87E941F0273A71800066BD70 /* LRSMessageToolBarComponents.podspec */,
 				73A233453EF39C853168ADE3 /* README.md */,
 				9520F1D35C11BB53F5F07795 /* LICENSE */,
 			);
@@ -184,6 +185,7 @@
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				87E941F1273A71800066BD70 /* LRSMessageToolBarComponents.podspec in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,13 +200,13 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LRSMessageToolBar_Example/Pods-LRSMessageToolBar_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/LRSMessageToolBar/LRSMessageToolBar.framework",
+				"${BUILT_PRODUCTS_DIR}/LRSMessageToolBarComponents/LRSMessageToolBarComponents.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LRSMessageToolBar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LRSMessageToolBarComponents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);

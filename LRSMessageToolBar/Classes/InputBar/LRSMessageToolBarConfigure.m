@@ -17,6 +17,10 @@
 
 @implementation LRSMessageToolBarConfigure
 
++ (instancetype)default {
+    return [[self alloc] init];
+}
+
 - (instancetype)init {
     if (self = [super init]) {
         self.recordConfigure = [LRSMessageToolBarRecordButtonConfigure new];
