@@ -10,7 +10,7 @@ import UIKit
     private let configure: LRSMessageToolBarConfigure
     private let toolBar: LRSMessageInputBar
     private lazy var memePackagesView = LRSMemePackagesView(frame: .zero, configures: LRSMessageToolBarHelper.allEmojis())
-    @objc weak var delegate: LRSMessageToolBarDelegate?
+    @objc weak var delegate: LRSMesssageBarProtocol?
 
     @objc init(frame: CGRect, configure: LRSMessageToolBarConfigure = .default()) {
         self.configure = configure
@@ -26,7 +26,7 @@ import UIKit
 
     @objc private func sendMessage() {
         let str = toolBar.inputTextView.text.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "\r", with: "")
-        delegate?.messageToolBarDidClickedReturn(self, text: str)
+        delegate?.messageToolBarDidClickedReturn(bar: self, text: str)
         toolBar.inputTextView.text = ""
         toolBar.inputTextView.setContentOffset(.zero, animated: true)
     }
@@ -289,59 +289,45 @@ import UIKit
 extension LRSMessageBar: UITextViewDelegate {
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        delegate?.messageToolBarInputTextViewDidBeginEditing(self)
+        delegate?.messageToolBarInputTextViewDidBeginEditing?(bar: self)
     }
 
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        return delegate?.messageToolBarInputTextViewShouldBeginEditing(self)
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        return delegate?.messageToolBarShouldBeginEditting(bar: self) ?? false
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        delegate?.messageToolBarInputTextViewDidEndEditing(bar: self)
+        textView.resignFirstResponder()
     }
 
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        guard let end = textView.selectedTextRange?.end else {
+            return
+        }
+        let r = textView.caretRect(for: end)
+        let y = max(r.origin.y - textView.frame.size.height + r.size.height + 8, 0)
+        if textView.contentOffset.y < y && r.origin.y != .infinity {
+            textView.contentOffset = CGPoint(x: 0, y: y)
+        }
+    }
 
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            sendMessage()
+            return false
+        }
+        return true
+    }
 
-    //    - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
-    //        if (self.delegate && [self.delegate respondsToSelector:@selector(messageToolBarInputTextViewShouldBeginEditing)]) {
-    //            return [self.delegate messageToolBarInputTextViewShouldBeginEditing:self];
-    //        }
-    //        return YES;
-    //    }
-    //
-    //    - (void)textViewDidBeginEditing:(UITextView *)textView {
-    //        if (self.delegate && [self.delegate respondsToSelector:@selector(messageToolBarInputTextViewDidBeginEditing:)]) {
-    //            [self.delegate messageToolBarInputTextViewDidBeginEditing:self];
-    //        }
-    //    }
-    //
-    //    - (void)textViewDidEndEditing:(UITextView *)textView {
-    //        if (self.delegate && [self.delegate respondsToSelector:@selector(messageToolBarInputTextViewDidEndEditing:)]) {
-    //            [self.delegate messageToolBarInputTextViewDidEndEditing:self];
-    //        }
-    //        [textView resignFirstResponder];
-    //    }
-    //
-    //    - (void)textViewDidChangeSelection:(UITextView *)textView {
-    //        CGRect r = [textView caretRectForPosition:textView.selectedTextRange.end];
-    //        CGFloat caretY = MAX(r.origin.y - textView.frame.size.height + r.size.height + 8, 0);
-    //        if (textView.contentOffset.y < caretY && r.origin.y != INFINITY) {
-    //            textView.contentOffset = CGPointMake(0, caretY);
-    //        }
-    //    }
-    //
-    //    - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    //        if ([text isEqualToString:@"\n"]) {
-    //            [self sendOut_];
-    //            return NO;
-    //        }
-    //        return YES;
-    //    }
-    //
-    //    - (void)textViewDidChange:(UITextView *)textView {
-    //        NSInteger length = self.configure.textViewConfigure.acceptLength;
-    //    //    if ([DXMessageToolBarTextHandler textCountWithText:textView.text] > length) {
-    //    //        textView.text = [DXMessageToolBarTextHandler handleTextWithText:textView.text maxLength:length];
-    //    //    }
-    //    //    [self willShowInputTextViewToHeight:[self textViewContentHeight_:self.toolBar.inputTextView]];
-    //    }
-    //
+    func textViewDidChange(_ textView: UITextView) {
+        let length = configure.textViewConfigure.acceptLength
+        guard textView.text.count < length else {
+            return
+        }
+        textView.text = String(textView.text.prefix(length))
+        // height
+    }
 
     private func textViewHeight() -> CGFloat {
         let textView = toolBar.inputTextView
