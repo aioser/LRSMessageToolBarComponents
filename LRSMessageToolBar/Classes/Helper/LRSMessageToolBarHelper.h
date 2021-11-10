@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (CGFloat)screenHeight;
 + (NSArray<LRSMemePackageConfigure *> *)allEmojis;
 + (CGSize)sizeForEmojiKey:(NSString *)key;
++ (CGFloat)safeAreaHeight;
 @end
 
 NS_ASSUME_NONNULL_END

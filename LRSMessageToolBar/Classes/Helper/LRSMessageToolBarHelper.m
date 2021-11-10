@@ -28,6 +28,10 @@ static bool kLRSIPhoneXSeriesDevice = true;
     kLRSMessageToolBarHelperScale = scale;
 }
 
++ (CGFloat)safeAreaHeight {
+    return [LRSMessageToolBarHelper isIPhoneXSeriesDevice] ? 33 : 0;;
+}
+
 + (NSBundle *)bundle {
     static NSBundle *sourceBundle = nil;
     static dispatch_once_t onceToken;

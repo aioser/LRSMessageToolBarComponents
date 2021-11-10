@@ -83,22 +83,18 @@
 
     [self.sendEmojiButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self);
-        make.bottom.mas_equalTo(-LRSMemePackagesView.safeAreaHeight);
+        make.bottom.mas_equalTo(-LRSMessageToolBarHelper.safeAreaHeight);
         make.width.mas_equalTo(60);
         make.height.mas_equalTo(LRSMemePackagesView.actionButtonHeight);
     }];
 }
 
 + (CGFloat)boardHeight {
-    return [self memeBoardHeight] + [self safeAreaHeight] + [self actionButtonHeight];
+    return [self memeBoardHeight] + [LRSMessageToolBarHelper safeAreaHeight] + [self actionButtonHeight];
 }
 
 + (CGFloat)memeBoardHeight {
     return 213;
-}
-
-+ (CGFloat)safeAreaHeight {
-    return [LRSMessageToolBarHelper isIPhoneXSeriesDevice] ? 33 : 0;;
 }
 
 + (CGFloat)actionButtonHeight {

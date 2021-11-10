@@ -100,7 +100,11 @@
     self.inputTextView.hidden = !self.recordingBtn.hidden;
     self.faceButton.hidden = self.inputTextView.hidden;
     [self.modeSwitchButton setBackgroundImage:[self.configure.modeSwitchConfigure.stateConfigure imageForState:mode == LRSMessageToolBarModeTextInput ? UIControlStateNormal : UIControlStateSelected] forState:UIControlStateNormal];
-
+    if (mode == LRSMessageToolBarModeRecord) {
+        [self.inputTextView resignFirstResponder];
+    } else {
+        [self.inputTextView becomeFirstResponder];
+    }
 }
 
 - (UIView *)bottomLine {

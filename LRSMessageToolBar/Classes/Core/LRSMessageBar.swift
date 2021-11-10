@@ -6,30 +6,98 @@
 //
 
 import UIKit
-@objc class LRSMessageBar: UIView {
+
+enum Mode {
+    case normal
+    case keyboard
+    case meme
+}
+
+@objc public class LRSMessageBar: UIView {
+
     private let configure: LRSMessageToolBarConfigure
     private let toolBar: LRSMessageInputBar
-    private lazy var memePackagesView = LRSMemePackagesView(frame: .zero, configures: LRSMessageToolBarHelper.allEmojis())
+    private var mode: Mode = .normal
+    private var memeBoardHeight: CGFloat = LRSMemePackagesView.boardHeight()
+
     @objc weak var delegate: LRSMesssageBarProtocol?
 
-    @objc init(frame: CGRect, configure: LRSMessageToolBarConfigure = .default()) {
+    private lazy var memePackagesView = LRSMemePackagesView(frame: .zero, configures: LRSMessageToolBarHelper.allEmojis())
+
+    var textViewHeight: CGFloat {
+        let textView = toolBar.inputTextView
+        let height = textView.sizeThatFits(textView.bounds.size).height
+        let minHeight = configure.textViewConfigure.minHeight
+        let maxHeight = configure.textViewConfigure.maxHeight
+        return min(maxHeight, max(minHeight, height))
+    }
+
+
+    @objc public init(frame: CGRect, configure: LRSMessageToolBarConfigure = .default()) {
         self.configure = configure
         toolBar = LRSMessageInputBar.toolBar(with: configure)
         super.init(frame: frame)
+        buildUI()
+        addObservers()
     }
 
     required init?(coder: NSCoder) {
         configure = .default()
         toolBar = LRSMessageInputBar.toolBar(with: configure)
         super.init(coder: coder)
+        buildUI()
+        addObservers()
     }
 
-    @objc private func sendMessage() {
+    public func buildUI() {
+        toolBar.frame = CGRect(x: 0, y: 0, width: LRSMessageToolBarHelper.screenWidth(), height: self.textViewHeight)
+        addSubview(toolBar)
+    }
+
+    private func addObservers() {
+        toolBar.inputTextView.delegate = self
+
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIKeyboardWillShow, object: nil, queue: .main) {[unowned self] noti in
+            let info = noti.userInfo
+            let duration = info?[UIKeyboardAnimationDurationUserInfoKey] as? Double
+            let to = info?[UIKeyboardFrameEndUserInfoKey] as? CGRect
+            var y: CGFloat!
+            switch mode {
+            case .normal:
+                y = (to?.origin.y ?? 100) - self.textViewHeight - 15
+            default: return
+            }
+            var rect = self.frame
+            rect.origin.y = y
+            frameChange(to: rect, duration: duration)
+
+        }
+
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIKeyboardWillHide, object: nil, queue: .main) {[unowned self] noti in
+            let info = noti.userInfo
+            let duration = info?[UIKeyboardAnimationDurationUserInfoKey] as? Double
+            let y = LRSMessageToolBarHelper.screenHeight() - self.textViewHeight - LRSMessageToolBarHelper.safeAreaHeight()
+            var rect = self.frame
+            rect.origin.y = y
+            frameChange(to: rect, duration: duration)
+        }
+    }
+
+    func frameChange(to: CGRect, duration: TimeInterval? = 0.3) {
+        UIView.animate(withDuration: duration!) {
+            self.frame = to
+        }
+    }
+
+
+    func sendMessage() {
         let str = toolBar.inputTextView.text.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "\r", with: "")
         delegate?.messageToolBarDidClickedReturn(bar: self, text: str)
         toolBar.inputTextView.text = ""
         toolBar.inputTextView.setContentOffset(.zero, animated: true)
+        toolBar.inputTextView.resignFirstResponder()
     }
+}
 
 //    #pragma mark - UITextViewDelegate
 //
@@ -283,25 +351,23 @@ import UIKit
 //        }
 //        return _toolBar;
 //    }
-}
 
 
 extension LRSMessageBar: UITextViewDelegate {
 
-    func textViewDidBeginEditing(_ textView: UITextView) {
+    public func textViewDidBeginEditing(_ textView: UITextView) {
         delegate?.messageToolBarInputTextViewDidBeginEditing?(bar: self)
     }
 
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        return delegate?.messageToolBarShouldBeginEditting(bar: self) ?? false
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        delegate?.messageToolBarInputTextViewDidEndEditing(bar: self)
-        textView.resignFirstResponder()
+    public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        return delegate?.messageToolBarShouldBeginEditting(bar: self) ?? true
     }
 
-    func textViewDidChangeSelection(_ textView: UITextView) {
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        delegate?.messageToolBarInputTextViewDidEndEditing(bar: self)
+    }
+
+    public func textViewDidChangeSelection(_ textView: UITextView) {
         guard let end = textView.selectedTextRange?.end else {
             return
         }
@@ -312,7 +378,7 @@ extension LRSMessageBar: UITextViewDelegate {
         }
     }
 
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             sendMessage()
             return false
@@ -320,7 +386,12 @@ extension LRSMessageBar: UITextViewDelegate {
         return true
     }
 
-    func textViewDidChange(_ textView: UITextView) {
+    public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        textView.resignFirstResponder()
+        return true
+    }
+
+    public func textViewDidChange(_ textView: UITextView) {
         let length = configure.textViewConfigure.acceptLength
         guard textView.text.count < length else {
             return
@@ -329,11 +400,4 @@ extension LRSMessageBar: UITextViewDelegate {
         // height
     }
 
-    private func textViewHeight() -> CGFloat {
-        let textView = toolBar.inputTextView
-        let height = textView.sizeThatFits(textView.bounds.size).height
-        let minHeight = configure.textViewConfigure.minHeight
-        let maxHeight = configure.textViewConfigure.maxHeight
-        return min(maxHeight, max(minHeight, height))
-    }
 }

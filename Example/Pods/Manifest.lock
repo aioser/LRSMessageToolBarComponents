@@ -1,8 +1,9 @@
 PODS:
   - LRSMessageToolBarComponents (0.1.0):
-    - LRSMessageToolBarComponents/Emoji (= 0.1.0)
-    - LRSMessageToolBarComponents/Helper (= 0.1.0)
-    - LRSMessageToolBarComponents/InputBar (= 0.1.0)
+    - LRSMessageToolBarComponents/Core (= 0.1.0)
+  - LRSMessageToolBarComponents/Core (0.1.0):
+    - LRSMessageToolBarComponents/Emoji
+    - LRSMessageToolBarComponents/InputBar
   - LRSMessageToolBarComponents/Emoji (0.1.0):
     - LRSMessageToolBarComponents/Helper
     - Masonry (~> 1.1.0)
@@ -27,7 +28,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LRSMessageToolBarComponents: d0fee19852f301ee0e467bc6be6e6f9bc8e201dd
+  LRSMessageToolBarComponents: 23dbde6670368d56bb10b558cf59d82dd2c7e057
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 

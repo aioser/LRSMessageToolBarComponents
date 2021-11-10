@@ -30,6 +30,8 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '11.0'
 
+  s.default_subspec = 'Core'
+
   s.subspec 'Emoji' do |emoji|
       emoji.source_files = 'LRSMessageToolBar/Classes/Emoji/**/*'
       emoji.dependency 'Masonry', '~> 1.1.0'
@@ -45,5 +47,10 @@ TODO: Add long description of the pod here.
       input.source_files = 'LRSMessageToolBar/Classes/InputBar/**/*'
       input.dependency 'Masonry', '~> 1.1.0'
       input.dependency 'LRSMessageToolBarComponents/Helper'
+  end
+  s.subspec 'Core' do |input|
+      input.source_files = 'LRSMessageToolBar/Classes/Core/**/*'
+      input.dependency 'LRSMessageToolBarComponents/Emoji'
+      input.dependency 'LRSMessageToolBarComponents/InputBar'
   end
 end
