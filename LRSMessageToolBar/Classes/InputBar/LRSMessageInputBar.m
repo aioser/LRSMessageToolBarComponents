@@ -92,6 +92,11 @@
 
 - (void)modeSwitchClick:(UIButton *)button {
     self.mode = !_mode;
+    if (_mode == LRSMessageToolBarModeRecord) {
+        [self.inputTextView resignFirstResponder];
+    } else {
+        [self.inputTextView becomeFirstResponder];
+    }
 }
 
 - (void)onModeSwitch:(LRSMessageToolBarMode)mode {
@@ -100,11 +105,7 @@
     self.inputTextView.hidden = !self.recordingBtn.hidden;
     self.faceButton.hidden = self.inputTextView.hidden;
     [self.modeSwitchButton setBackgroundImage:[self.configure.modeSwitchConfigure.stateConfigure imageForState:mode == LRSMessageToolBarModeTextInput ? UIControlStateNormal : UIControlStateSelected] forState:UIControlStateNormal];
-    if (mode == LRSMessageToolBarModeRecord) {
-        [self.inputTextView resignFirstResponder];
-    } else {
-        [self.inputTextView becomeFirstResponder];
-    }
+
 }
 
 - (UIView *)bottomLine {
