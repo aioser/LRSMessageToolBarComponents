@@ -95,8 +95,8 @@
 - (LRSMessageToolBarButtonStateConfigure *)stateConfigure {
     if (!_stateConfigure) {
         _stateConfigure = [[LRSMessageToolBarButtonStateConfigure alloc] init];
-        [_stateConfigure setImage:[LRSMessageToolBarHelper imageNamed:@"information_keyboard_normal"] forState:(UIControlStateNormal)];
-        [_stateConfigure setImage:[LRSMessageToolBarHelper imageNamed:@"im_voice_selected"] forState:(UIControlStateSelected)];
+        [_stateConfigure setImage:[LRSMessageToolBarHelper imageNamed:@"information_keyboard_normal"] forState:(UIControlStateSelected)];
+        [_stateConfigure setImage:[LRSMessageToolBarHelper imageNamed:@"im_voice_selected"] forState:(UIControlStateNormal)];
     }
     return _stateConfigure;
 }

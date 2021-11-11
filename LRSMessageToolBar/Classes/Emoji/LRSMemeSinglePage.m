@@ -79,11 +79,13 @@
 }
 
 - (void)emojiButtonPressed:(UIButton *)button {
-    if (button.tag == BACKSPACE_BUTTON_TAG) {
+    if (button.tag == BACKSPACE_BUTTON_TAG && self.backspaceHandler) {
         self.backspaceHandler(self);
         return;
     }
-
+    if (!self.itemHandler) {
+        return;
+    }
     NSInteger tag = button.tag - 100;
     if (tag >= 0 && tag < self.emojis.count) {
         LRSMemePackageConfigureItem *info = self.emojis[(NSUInteger) tag];

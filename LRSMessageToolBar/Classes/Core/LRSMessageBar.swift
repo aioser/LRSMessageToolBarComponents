@@ -32,7 +32,6 @@ enum Mode {
         return min(maxHeight, max(minHeight, height))
     }
 
-
     @objc public init(frame: CGRect, configure: LRSMessageToolBarConfigure = .default()) {
         self.configure = configure
         toolBar = LRSMessageInputBar.toolBar(with: configure)
@@ -49,9 +48,84 @@ enum Mode {
         addObservers()
     }
 
-    public func buildUI() {
+    private func buildUI() {
         toolBar.frame = CGRect(x: 0, y: 0, width: LRSMessageToolBarHelper.screenWidth(), height: self.textViewHeight)
         addSubview(toolBar)
+        memePackagesView.buildUI()
+        toolBar.faceButton.addTarget(self, action: #selector(onSwithMemeMode(button:)), for: .touchUpInside)
+        toolBar.modeSwitchButton.addTarget(self, action: #selector(onSwithButtonClicked(button:)), for: .touchUpInside)
+    }
+
+    @objc func onSwithButtonClicked(button: UIButton) {
+        switch toolBar.mode {
+        case .record:
+            mode = .normal
+            toolBar.inputTextView.resignFirstResponder()
+            animationHiddenMemePackagesView()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.animationResignFirstResponder(duration: 0.3)
+            }
+        case .textInput: break
+
+        }
+    }
+
+    private func animationHiddenMemePackagesView() {
+        UIView.animate(withDuration: 0.3) {
+            var memeRect = self.memePackagesView.frame
+            memeRect.origin.y = self.textViewHeight + 60
+            self.memePackagesView.frame = memeRect
+        }
+    }
+
+    private func animationResignFirstResponder(duration: TimeInterval) {
+        let y = LRSMessageToolBarHelper.screenHeight() - self.textViewHeight - LRSMessageToolBarHelper.safeAreaHeight()
+        var rect = self.frame
+        rect.origin.y = y
+        UIView.animate(withDuration: duration) {
+            self.frame = rect
+        }
+    }
+
+    private func animationShowMemePackagesView() {
+        let height = self.textViewHeight + self.memeBoardHeight
+        let rect = self.frame
+        self.memePackagesView.frame = CGRect(x: 0, y: height, width: rect.size.width, height: self.memeBoardHeight)
+        UIView.animate(withDuration: 0.3) {
+            var memeRect = self.memePackagesView.frame
+            memeRect.origin.y = self.textViewHeight + 10
+            self.memePackagesView.frame = memeRect
+        }
+    }
+
+    private func animationBecomeFirstResponder(duration: TimeInterval, bottomHeight: CGFloat) {
+        let height = self.textViewHeight + bottomHeight + 10
+        let y = LRSMessageToolBarHelper.screenHeight() - height
+        var rect = self.frame
+        rect.origin.y = y
+        rect.size.height = height
+        UIView.animate(withDuration: 0.3) {
+            self.frame = rect
+        }
+    }
+
+    @objc func onSwithMemeMode(button: UIButton) {
+        if mode == .normal || mode == .keyboard {
+            mode = .meme
+            toolBar.inputTextView.resignFirstResponder()
+            animationBecomeFirstResponder(duration: 0.3, bottomHeight: self.memeBoardHeight)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.animationShowMemePackagesView()
+            }
+        } else {
+            toolBar.inputTextView.becomeFirstResponder()
+            mode = .keyboard
+            UIView.animate(withDuration: 0.3) {
+                var memeRect = self.memePackagesView.frame
+                memeRect.origin.y = self.textViewHeight + self.memeBoardHeight
+                self.memePackagesView.frame = memeRect
+            }
+        }
     }
 
     private func addObservers() {
@@ -61,31 +135,16 @@ enum Mode {
             let info = noti.userInfo
             let duration = info?[UIKeyboardAnimationDurationUserInfoKey] as? Double
             let to = info?[UIKeyboardFrameEndUserInfoKey] as? CGRect
-            var y: CGFloat!
-            switch mode {
-            case .normal:
-                y = (to?.origin.y ?? 100) - self.textViewHeight - 15
-            default: return
-            }
-            var rect = self.frame
-            rect.origin.y = y
-            frameChange(to: rect, duration: duration)
-
+            animationBecomeFirstResponder(duration: duration ?? 0.3, bottomHeight: to?.size.height ?? 100)
+            mode = .keyboard
         }
 
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIKeyboardWillHide, object: nil, queue: .main) {[unowned self] noti in
-            let info = noti.userInfo
-            let duration = info?[UIKeyboardAnimationDurationUserInfoKey] as? Double
-            let y = LRSMessageToolBarHelper.screenHeight() - self.textViewHeight - LRSMessageToolBarHelper.safeAreaHeight()
-            var rect = self.frame
-            rect.origin.y = y
-            frameChange(to: rect, duration: duration)
-        }
-    }
-
-    func frameChange(to: CGRect, duration: TimeInterval? = 0.3) {
-        UIView.animate(withDuration: duration!) {
-            self.frame = to
+            if mode == .keyboard {
+                let info = noti.userInfo
+                let duration = info?[UIKeyboardAnimationDurationUserInfoKey] as? Double
+                animationResignFirstResponder(duration: duration ?? 0.3)
+            }
         }
     }
 
@@ -98,192 +157,6 @@ enum Mode {
         toolBar.inputTextView.resignFirstResponder()
     }
 }
-
-//    #pragma mark - UITextViewDelegate
-//
-
-//    #pragma mark - UIKeyboardNotification
-//
-//    - (void)keyboardWillChangeFrame:(NSNotification *)notification {
-//        if (self.hidden) {
-//            return;
-//        }
-//        NSDictionary *userInfo = notification.userInfo;
-//        CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-//        CGPoint centerEndPoint = [userInfo[UIKeyboardCenterEndUserInfoKey] CGPointValue];
-//        CGRect beginFrame = CGRectMake(0, self.frame.origin.y + self.frame.size.height, endFrame.size.width, endFrame.size.height);
-//        CGFloat duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-//        UIViewAnimationCurve curve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-//
-//        [UIView animateWithDuration:duration
-//                              delay:0.0f
-//                            options:(curve << 16 | UIViewAnimationOptionBeginFromCurrentState)
-//                         animations:^{
-//    //                         [self willShowKeyboardFromFrame:beginFrame toFrame:endFrame];
-//                             if (centerEndPoint.y > [LRSMessageToolBarHelper screenHeight] + 20) {
-//    //                             [self willShowBottomView:nil];
-//                             }
-//                         } completion:nil];
-//    }
-//
-//    - (void)didClickFaceBtn:(UIButton *)button {
-//        NSLog(@"点击表情");
-//
-//    }
-//
-//    // 点击转换按钮,控制模式转换
-//    - (void)msgSendClick:(UIButton *)btn {
-//
-//    }
-//
-//    - (void)onImagePickButtonClick:(UIButton *)button {
-//        if (self.delegate && [self.delegate respondsToSelector:@selector(messageToolBar:buttonDidClicked:)]) {
-//            [self.delegate messageToolBar:self buttonDidClicked:1];
-//        }
-//    }
-//    //
-//    //#pragma mark - change frame
-//    //
-//    //- (void)willShowBottomHeight:(CGFloat)tobe_bottomHeight {
-//    //    if ((self.toolBarSkinType == RecreationRoomChatToolBarType || self.toolBarSkinType == RecreationRoomAccompyChatToolBarType)) {
-//    //        CGRect fromFrame = self.frame;
-//    //        CGFloat bottomHeight = (tobe_bottomHeight == 0) ? kSafeAreaBottomHeight : tobe_bottomHeight;
-//    //        CGFloat toHeight = self.toolbarView.frame.size.height + bottomHeight;
-//    //        CGRect toFrame = CGRectMake(fromFrame.origin.x, SCREEN_HEIGHT - toHeight, fromFrame.size.width, toHeight);
-//    //        if (tobe_bottomHeight == 0) {
-//    //            bottomHeight = 0;
-//    //            toFrame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, toHeight);
-//    //        }
-//    //
-//    //        //如果需要将所有扩展页面都隐藏，而此时已经隐藏了所有扩展页面，则不进行任何操作
-//    //        if (tobe_bottomHeight == 0 && self.frame.size.height == self.toolbarView.frame.size.height) {
-//    //            return;
-//    //        }
-//    //
-//    //        if (self.isHidden) {
-//    //        } else {
-//    //            self.frame = toFrame;
-//    //            if (_delegate && [_delegate respondsToSelector:@selector(didChangeFrameToHeight:)]) {
-//    //                [_delegate didChangeFrameToHeight:toHeight];
-//    //            }
-//    //        }
-//    //    } else {
-//    //        CGRect fromFrame = self.frame;
-//    //        CGFloat bottomHeight = (tobe_bottomHeight == 0) ? 0 + kSafeAreaBottomHeight : tobe_bottomHeight;
-//    //        CGFloat toHeight = self.toolbarView.frame.size.height + bottomHeight;
-//    //        CGRect toFrame = CGRectMake(fromFrame.origin.x, fromFrame.origin.y + (fromFrame.size.height - toHeight), fromFrame.size.width, toHeight);
-//    //
-//    //        //如果需要将所有扩展页面都隐藏，而此时已经隐藏了所有扩展页面，则不进行任何操作
-//    //        if (tobe_bottomHeight == 0 && self.frame.size.height == self.toolbarView.frame.size.height) {
-//    //            return;
-//    //        }
-//    //
-//    //        if (self.isHidden) {
-//    //        } else {
-//    //            self.frame = toFrame;
-//    //            if (_delegate && [_delegate respondsToSelector:@selector(didChangeFrameToHeight:)]) {
-//    //                [_delegate didChangeFrameToHeight:toHeight];
-//    //            }
-//    //        }
-//    //    }
-//    //}
-//    //
-//    //- (void)willShowBottomView:(UIView *)bottomView {
-//    //    if (![self.activityBottomView isEqual:bottomView]) {
-//    //        if (self.activityBottomView) {
-//    //            [self.activityBottomView removeFromSuperview];
-//    //        }
-//    //        CGFloat bottomHeight = bottomView ? bottomView.frame.size.height : 0;
-//    //        [self willShowBottomHeight:bottomHeight];
-//    //        if (bottomView) {
-//    //            CGRect rect = bottomView.frame;
-//    //            rect.origin.y = CGRectGetMaxY(self.toolbarView.frame);
-//    //            bottomView.frame = rect;
-//    //            [self addSubview:bottomView];
-//    //        } else {
-//    //
-//    //        }
-//    //        self.activityBottomView = bottomView;
-//    //    }
-//    //}
-//    //
-//    //- (void)willShowKeyboardFromFrame:(CGRect)beginFrame toFrame:(CGRect)toFrame {
-//    //    if (beginFrame.origin.y == [[UIScreen mainScreen] bounds].size.height) {
-//    //        //一定要把self.activityBottomView置为空
-//    //        [self willShowBottomHeight:toFrame.size.height];
-//    //        if (self.activityBottomView) {
-//    //            [self.activityBottomView removeFromSuperview];
-//    //        }
-//    //        self.activityBottomView = nil;
-//    //    } else if (toFrame.origin.y == [[UIScreen mainScreen] bounds].size.height) {
-//    //        [self willShowBottomHeight:0];
-//    //    } else {
-//    //        [self willShowBottomHeight:toFrame.size.height];
-//    //    }
-//    //}
-//    //
-//    //- (void)willShowInputTextViewToHeight:(CGFloat)toHeight {
-//    //    if (toHeight < self.kInputTextViewMinHeight) {
-//    //        toHeight = self.kInputTextViewMinHeight;
-//    //    }
-//    //    if (toHeight > self.maxTextInputViewHeight) {
-//    //        toHeight = self.maxTextInputViewHeight;
-//    //    }
-//    //
-//    //    if (toHeight == self.previousTextViewContentHeight) {
-//    //        return;
-//    //    } else {
-//    //        CGFloat changeHeight = toHeight - self.previousTextViewContentHeight;
-//    //
-//    //        CGRect rect = self.frame;
-//    //        rect.size.height += changeHeight;
-//    //        rect.origin.y -= changeHeight;
-//    //        self.frame = rect;
-//    //
-//    //        rect = self.toolbarView.frame;
-//    //        rect.size.height += changeHeight;
-//    //        self.toolbarView.frame = rect;
-//    //        self.previousTextViewContentHeight = toHeight;
-//    //
-//    //        rect = self.contentView.frame;
-//    //        rect.size.height += changeHeight;
-//    //        self.contentView.frame = rect;
-//    //
-//    //        rect = self.inputBaseView.frame;
-//    //        rect.size.height += changeHeight;
-//    //        self.inputBaseView.frame = rect;
-//    //
-//    //        if (_delegate && [_delegate respondsToSelector:@selector(didChangeFrameToHeight:)] && !self.isHidden) {
-//    //            [_delegate didChangeFrameToHeight:self.frame.size.height];
-//    //        }
-//    //    }
-//    //}
-//    //
-//    //
-//    //#pragma mark - public
-//    //
-//    ///**
-//    // *  停止编辑
-//    // */
-//    //- (BOOL)endEditing:(BOOL)force {
-//    //    if (!force && (self.hidden || !self.inputTextView.isFirstResponder)) {
-//    //        return YES;
-//    //    } else {
-//    //        BOOL result = [super endEditing:force];
-//    //        self.faceButton.selected = NO;
-//    //        [self.inputTextView endEditing:YES];
-//    //        if ([self.inputTextView isFirstResponder] && [self.inputTextView canResignFirstResponder]) {
-//    //            [self.inputTextView resignFirstResponder];
-//    //        } else {
-//    //            if (self.inputView.isFirstResponder) {
-//    //                [self.inputTextView resignFirstResponder];
-//    //            }
-//    //        }
-//    //        [self willShowBottomView:nil];
-//    //        return result;
-//    //    }
-//    //}
-//
 //    - (LRSMemePackagesView *)memePackagesView {
 //        if (!_memePackagesView) {
 //            _memePackagesView = [[LRSMemePackagesView alloc] initWithFrame:CGRectZero configures:[LRSMessageToolBarHelper allEmojis]];
@@ -357,6 +230,11 @@ extension LRSMessageBar: UITextViewDelegate {
 
     public func textViewDidBeginEditing(_ textView: UITextView) {
         delegate?.messageToolBarInputTextViewDidBeginEditing?(bar: self)
+        UIView.animate(withDuration: 0.3) {
+            var memeRect = self.memePackagesView.frame
+            memeRect.origin.y = self.textViewHeight + self.memeBoardHeight
+            self.memePackagesView.frame = memeRect
+        }
     }
 
     public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
