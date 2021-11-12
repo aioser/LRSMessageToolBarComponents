@@ -12,8 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (CGFloat)boardHeight;
 
 @property (nonatomic, copy) LRSMemePackageItemsHandler itemHandler;
+
 @property (nonatomic, copy) LRSMemePackageBackspaceHandler backspaceHandler;
-@property (nonatomic, copy) LRSMemePackageSendOutHandler sendOutHandler;
+
+@property (nonatomic, copy) LRSMemePackageSendOutHandler confirmHandler;
 
 - (void)buildUI;
 @end

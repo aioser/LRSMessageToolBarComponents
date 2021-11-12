@@ -89,6 +89,12 @@
     }];
 }
 
+- (void)sendOut {
+    if (self.confirmHandler) {
+        self.confirmHandler(self);
+    }
+}
+
 + (CGFloat)boardHeight {
     return [self memeBoardHeight] + [LRSMessageToolBarHelper safeAreaHeight] + [self actionButtonHeight];
 }
@@ -116,6 +122,7 @@
         _sendEmojiButton.titleLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightSemibold];
         _sendEmojiButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
         [[_sendEmojiButton imageView] setContentMode:UIViewContentModeScaleAspectFit];
+        [_sendEmojiButton addTarget:self action:@selector(sendOut) forControlEvents:(UIControlEventTouchUpInside)];
     }
     return _sendEmojiButton;
 }

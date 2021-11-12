@@ -8,8 +8,9 @@
 #import <Foundation/Foundation.h>
 @class LRSMemePackageConfigureItem;
 @class LRSMemeSinglePage;
-@class LRSMemePackgaesView;
-
+@class LRSMemePackagesView;
+NS_ASSUME_NONNULL_BEGIN
 typedef void(^LRSMemePackageItemsHandler)(LRSMemeSinglePage *view, LRSMemePackageConfigureItem *item);
 typedef void(^LRSMemePackageBackspaceHandler)(LRSMemeSinglePage *view);
-typedef void(^LRSMemePackageSendOutHandler)(LRSMemePackgaesView *view);
+typedef void(^LRSMemePackageSendOutHandler)(LRSMemePackagesView *view);
+NS_ASSUME_NONNULL_END

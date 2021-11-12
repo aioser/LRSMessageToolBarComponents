@@ -9,7 +9,6 @@ import UIKit
 
 @objc public class LRSMessageBar: UIView {
 
-
     enum Mode {
         case normal
         case keyboard
@@ -59,6 +58,25 @@ import UIKit
     private func buildUI() {
         toolBar.frame = CGRect(x: 0, y: 0, width: LRSMessageToolBarHelper.screenWidth(), height: self.textViewHeight)
         addSubview(toolBar)
+        memePackagesView.itemHandler = {[unowned self] _, item in
+            toolBar.inputTextView.text += item.emojiValue
+            let offset = toolBarPosition()
+            plus(offset: offset)
+            memePackagesView.y(to: memePackagesView.frame.origin.y - offset)
+        }
+
+        memePackagesView.backspaceHandler = {[unowned self] _ in
+            toolBar.inputTextView.deleteBackward()
+        }
+
+        memePackagesView.confirmHandler = {[unowned self] _ in
+            sendMessage()
+            animationHiddenMemePackagesView()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.animationResignFirstResponder(duration: 0.3)
+            }
+        }
+
         memePackagesView.buildUI()
         toolBar.faceButton.addTarget(self, action: #selector(onSwithMemeMode(button:)), for: .touchUpInside)
         toolBar.modeSwitchButton.addTarget(self, action: #selector(onSwithButtonClicked(button:)), for: .touchUpInside)
@@ -78,54 +96,6 @@ import UIKit
             toolBarPosition()
 //            plus(offset: )
             break
-        }
-    }
-
-    private func animationHiddenMemePackagesView() {
-        UIView.animate(withDuration: uiConfigure.memeAnimationDuration) {
-            var memeRect = self.memePackagesView.frame
-            memeRect.origin.y = self.textViewHeight + 30
-            self.memePackagesView.frame = memeRect
-            self.memePackagesView.alpha = 0
-        }
-    }
-
-    private func animationResignFirstResponder(duration: TimeInterval) {
-        let y = LRSMessageToolBarHelper.screenHeight() - toolBar.bounds.size.height - LRSMessageToolBarHelper.safeAreaHeight()
-        var rect = frame
-        rect.origin.y = y
-        UIView.animate(withDuration: duration) {
-            self.frame = rect
-        }
-    }
-
-    private func animationShowMemePackagesView() {
-        let y = textViewHeight + uiConfigure.memeAnimationOffset
-        let rect = frame
-        memePackagesView.frame = CGRect(x: 0, y: y, width: rect.size.width, height: memeBoardHeight)
-        memePackagesView.alpha = 0
-        if let _ = memePackagesView.superview {
-
-        } else {
-            addSubview(memePackagesView)
-        }
-        var memeRect = memePackagesView.frame
-        memeRect.origin.y = textViewHeight + uiConfigure.toolBottomOffset
-
-        UIView.animate(withDuration: uiConfigure.memeAnimationDuration) {
-            self.memePackagesView.frame = memeRect
-            self.memePackagesView.alpha = 1
-        }
-    }
-
-    private func animationBecomeFirstResponder(duration: TimeInterval, bottomHeight: CGFloat) {
-        let height = textViewHeight + bottomHeight + uiConfigure.toolBottomOffset
-        let y = LRSMessageToolBarHelper.screenHeight() - height
-        var rect = frame
-        rect.origin.y = y
-        rect.size.height = height
-        UIView.animate(withDuration: uiConfigure.memeAnimationDuration) {
-            self.frame = rect
         }
     }
 
@@ -291,7 +261,11 @@ extension LRSMessageBar: UITextViewDelegate {
             return
         }
         textView.text = String(textView.text.prefix(length))
-        plus(offset: toolBarPosition())
+        let offset = toolBarPosition()
+        plus(offset: offset)
+        if mode == .meme {
+            memePackagesView.y(to: memePackagesView.frame.origin.y - offset)
+        }
     }
 
 }
@@ -310,6 +284,13 @@ private extension UIView {
         rect.size.height = to
         self.frame = rect
     }
+
+    func y(to: CGFloat) {
+        var rect = self.frame
+        rect.origin.y = to
+        self.frame = rect
+    }
+
 }
 
 
@@ -317,9 +298,56 @@ private extension LRSMessageBar {
 
     @discardableResult func toolBarPosition() -> CGFloat {
         let offset = toolBar.bounds.size.height - textViewHeight
-        defer {
-            toolBar.height(to: textViewHeight)
-        }
+        toolBar.height(to: textViewHeight)
         return offset
     }
+
+    private func animationHiddenMemePackagesView() {
+        UIView.animate(withDuration: uiConfigure.memeAnimationDuration) {
+            var memeRect = self.memePackagesView.frame
+            memeRect.origin.y = self.textViewHeight + 30
+            self.memePackagesView.frame = memeRect
+            self.memePackagesView.alpha = 0
+        }
+    }
+
+    private func animationResignFirstResponder(duration: TimeInterval) {
+        let y = LRSMessageToolBarHelper.screenHeight() - toolBar.bounds.size.height - LRSMessageToolBarHelper.safeAreaHeight()
+        var rect = frame
+        rect.origin.y = y
+        UIView.animate(withDuration: duration) {
+            self.frame = rect
+        }
+    }
+
+    private func animationShowMemePackagesView() {
+        let y = textViewHeight + uiConfigure.memeAnimationOffset
+        let rect = frame
+        memePackagesView.frame = CGRect(x: 0, y: y, width: rect.size.width, height: memeBoardHeight)
+        memePackagesView.alpha = 0
+        if let _ = memePackagesView.superview {
+
+        } else {
+            addSubview(memePackagesView)
+        }
+        var memeRect = memePackagesView.frame
+        memeRect.origin.y = textViewHeight + uiConfigure.toolBottomOffset
+
+        UIView.animate(withDuration: uiConfigure.memeAnimationDuration) {
+            self.memePackagesView.frame = memeRect
+            self.memePackagesView.alpha = 1
+        }
+    }
+
+    private func animationBecomeFirstResponder(duration: TimeInterval, bottomHeight: CGFloat) {
+        let height = textViewHeight + bottomHeight + uiConfigure.toolBottomOffset
+        let y = LRSMessageToolBarHelper.screenHeight() - height
+        var rect = frame
+        rect.origin.y = y
+        rect.size.height = height
+        UIView.animate(withDuration: uiConfigure.memeAnimationDuration) {
+            self.frame = rect
+        }
+    }
 }
+
