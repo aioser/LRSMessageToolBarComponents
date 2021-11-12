@@ -70,10 +70,6 @@ import UIKit
 
         memePackagesView.confirmHandler = {[unowned self] _ in
             sendMessage()
-            animationHiddenMemePackagesView()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                animationResignFirstResponder(duration: 0.3)
-            }
         }
 
         toolBar.recordingBtn.touchBegan = { [unowned self] button in
@@ -164,8 +160,11 @@ import UIKit
         delegate?.messageToolBarDidClickedReturn(bar: self, text: str)
         toolBar.inputTextView.text = ""
         toolBar.inputTextView.setContentOffset(.zero, animated: true)
-        toolBar.height(to: textViewHeight)
-        toolBar.inputTextView.resignFirstResponder()
+        let offset = toolBarPosition()
+        plus(offset: offset)
+        if mode == .meme {
+            memePackagesView.y(to: memePackagesView.frame.origin.y - offset)
+        }
     }
 }
 
