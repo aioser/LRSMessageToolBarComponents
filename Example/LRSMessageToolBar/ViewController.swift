@@ -14,7 +14,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let inputView = LRSMessageBar(frame: CGRect(x: 0, y: LRSMessageToolBarHelper.screenHeight() - 200, width: LRSMessageToolBarHelper.screenWidth(), height: 200), configure: .default())
+        let inputView = LRSMessageBar(frame: CGRect(x: 0, y: LRSMessageToolBarHelper.screenHeight() - 33, width: LRSMessageToolBarHelper.screenWidth(), height: 33), configure: .default())
         view.addSubview(inputView)
         // Do any additional setup after loading the view, typically from a nib.
     }

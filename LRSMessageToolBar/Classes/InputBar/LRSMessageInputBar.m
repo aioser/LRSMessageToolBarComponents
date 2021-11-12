@@ -12,7 +12,6 @@
 
 @interface LRSMessageInputBar()
 @property (nonatomic, strong) LRSMessageToolBarConfigure *configure;
-@property (nonatomic, strong) MASConstraint *textViewHeight;
 @end
 
 @implementation LRSMessageInputBar
@@ -53,7 +52,7 @@
     [self addSubview:self.bottomLine];
 
     [self.bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.inputTextView.mas_bottom).offset(-1);
+        make.bottom.equalTo(self.inputTextView.mas_bottom);
         make.left.right.equalTo(self.inputTextView);
         make.height.equalTo(@0.5);
     }];
@@ -71,7 +70,7 @@
     [self.inputTextView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(self.recordingBtn);
         make.right.equalTo(self.faceButton.mas_left).offset(-self.configure.textViewConfigure.topMargin);
-        self.textViewHeight = make.height.mas_equalTo(self.configure.textViewConfigure.minHeight);
+        make.bottom.equalTo(self);
     }];
     [self.imagePickButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).offset(-self.configure.buttonConfigure.rightButtonsMargin);
@@ -104,7 +103,7 @@
     self.modeSwitchButton.selected = !self.recordingBtn.hidden;
     self.inputTextView.hidden = !self.recordingBtn.hidden;
     self.faceButton.hidden = self.inputTextView.hidden;
-    [self.modeSwitchButton setBackgroundImage:[self.configure.modeSwitchConfigure.stateConfigure imageForState:mode == LRSMessageToolBarModeTextInput ? UIControlStateNormal : UIControlStateSelected] forState:UIControlStateNormal];
+    [self.modeSwitchButton setImage:[self.configure.modeSwitchConfigure.stateConfigure imageForState:mode == LRSMessageToolBarModeTextInput ? UIControlStateNormal : UIControlStateSelected] forState:UIControlStateNormal];
 
 }
 

@@ -7,18 +7,26 @@
 
 import UIKit
 
-enum Mode {
-    case normal
-    case keyboard
-    case meme
-}
-
 @objc public class LRSMessageBar: UIView {
+
+
+    enum Mode {
+        case normal
+        case keyboard
+        case meme
+    }
+
+    struct BarConfigure {
+        let toolBottomOffset: CGFloat = 10
+        let memeAnimationDuration: TimeInterval = 0.3
+        let memeAnimationOffset: CGFloat = 50
+    }
 
     private let configure: LRSMessageToolBarConfigure
     private let toolBar: LRSMessageInputBar
     private var mode: Mode = .normal
     private var memeBoardHeight: CGFloat = LRSMemePackagesView.boardHeight()
+    private let uiConfigure = BarConfigure()
 
     @objc weak var delegate: LRSMesssageBarProtocol?
 
@@ -61,26 +69,30 @@ enum Mode {
         case .record:
             mode = .normal
             toolBar.inputTextView.resignFirstResponder()
+            toolBar.height(to: 35)
             animationHiddenMemePackagesView()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.animationResignFirstResponder(duration: 0.3)
             }
-        case .textInput: break
-
+        case .textInput:
+            toolBarPosition()
+//            plus(offset: )
+            break
         }
     }
 
     private func animationHiddenMemePackagesView() {
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: uiConfigure.memeAnimationDuration) {
             var memeRect = self.memePackagesView.frame
-            memeRect.origin.y = self.textViewHeight + 60
+            memeRect.origin.y = self.textViewHeight + 30
             self.memePackagesView.frame = memeRect
+            self.memePackagesView.alpha = 0
         }
     }
 
     private func animationResignFirstResponder(duration: TimeInterval) {
-        let y = LRSMessageToolBarHelper.screenHeight() - self.textViewHeight - LRSMessageToolBarHelper.safeAreaHeight()
-        var rect = self.frame
+        let y = LRSMessageToolBarHelper.screenHeight() - toolBar.bounds.size.height - LRSMessageToolBarHelper.safeAreaHeight()
+        var rect = frame
         rect.origin.y = y
         UIView.animate(withDuration: duration) {
             self.frame = rect
@@ -88,43 +100,47 @@ enum Mode {
     }
 
     private func animationShowMemePackagesView() {
-        let height = self.textViewHeight + self.memeBoardHeight
-        let rect = self.frame
-        self.memePackagesView.frame = CGRect(x: 0, y: height, width: rect.size.width, height: self.memeBoardHeight)
-        UIView.animate(withDuration: 0.3) {
-            var memeRect = self.memePackagesView.frame
-            memeRect.origin.y = self.textViewHeight + 10
+        let y = textViewHeight + uiConfigure.memeAnimationOffset
+        let rect = frame
+        memePackagesView.frame = CGRect(x: 0, y: y, width: rect.size.width, height: memeBoardHeight)
+        memePackagesView.alpha = 0
+        if let _ = memePackagesView.superview {
+
+        } else {
+            addSubview(memePackagesView)
+        }
+        var memeRect = memePackagesView.frame
+        memeRect.origin.y = textViewHeight + uiConfigure.toolBottomOffset
+
+        UIView.animate(withDuration: uiConfigure.memeAnimationDuration) {
             self.memePackagesView.frame = memeRect
+            self.memePackagesView.alpha = 1
         }
     }
 
     private func animationBecomeFirstResponder(duration: TimeInterval, bottomHeight: CGFloat) {
-        let height = self.textViewHeight + bottomHeight + 10
+        let height = textViewHeight + bottomHeight + uiConfigure.toolBottomOffset
         let y = LRSMessageToolBarHelper.screenHeight() - height
-        var rect = self.frame
+        var rect = frame
         rect.origin.y = y
         rect.size.height = height
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: uiConfigure.memeAnimationDuration) {
             self.frame = rect
         }
     }
 
-    @objc func onSwithMemeMode(button: UIButton) {
+    @objc private func onSwithMemeMode(button: UIButton) {
         if mode == .normal || mode == .keyboard {
             mode = .meme
             toolBar.inputTextView.resignFirstResponder()
-            animationBecomeFirstResponder(duration: 0.3, bottomHeight: self.memeBoardHeight)
+            animationBecomeFirstResponder(duration: uiConfigure.memeAnimationDuration, bottomHeight: self.memeBoardHeight)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.animationShowMemePackagesView()
             }
         } else {
             toolBar.inputTextView.becomeFirstResponder()
             mode = .keyboard
-            UIView.animate(withDuration: 0.3) {
-                var memeRect = self.memePackagesView.frame
-                memeRect.origin.y = self.textViewHeight + self.memeBoardHeight
-                self.memePackagesView.frame = memeRect
-            }
+            animationHiddenMemePackagesView()
         }
     }
 
@@ -148,12 +164,12 @@ enum Mode {
         }
     }
 
-
-    func sendMessage() {
+    private func sendMessage() {
         let str = toolBar.inputTextView.text.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "\r", with: "")
         delegate?.messageToolBarDidClickedReturn(bar: self, text: str)
         toolBar.inputTextView.text = ""
         toolBar.inputTextView.setContentOffset(.zero, animated: true)
+        toolBar.height(to: textViewHeight)
         toolBar.inputTextView.resignFirstResponder()
     }
 }
@@ -275,7 +291,35 @@ extension LRSMessageBar: UITextViewDelegate {
             return
         }
         textView.text = String(textView.text.prefix(length))
-        // height
+        plus(offset: toolBarPosition())
     }
 
+}
+
+
+private extension UIView {
+    func plus(offset: CGFloat) {
+        var selfRect = self.frame
+        selfRect.origin.y += offset
+        selfRect.size.height -= offset
+        self.frame = selfRect
+    }
+
+    func height(to: CGFloat) {
+        var rect = self.frame
+        rect.size.height = to
+        self.frame = rect
+    }
+}
+
+
+private extension LRSMessageBar {
+
+    @discardableResult func toolBarPosition() -> CGFloat {
+        let offset = toolBar.bounds.size.height - textViewHeight
+        defer {
+            toolBar.height(to: textViewHeight)
+        }
+        return offset
+    }
 }

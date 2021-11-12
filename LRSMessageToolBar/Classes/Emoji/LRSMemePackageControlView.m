@@ -116,7 +116,6 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%.2f", scrollView.contentOffset.x);
     NSInteger newPageNumber = (NSInteger)scrollView.contentOffset.x / ([self viewWidth] - (self.scrollViewEdgeInsets.left + self.scrollViewEdgeInsets.right));
     if (self.pageControl.currentPage == newPageNumber) {
         return;
