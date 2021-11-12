@@ -103,8 +103,8 @@
     self.modeSwitchButton.selected = !self.recordingBtn.hidden;
     self.inputTextView.hidden = !self.recordingBtn.hidden;
     self.faceButton.hidden = self.inputTextView.hidden;
+    self.bottomLine.hidden = ![LRSMessageToolBarHelper isIPhoneXSeriesDevice] || self.inputTextView.hidden;
     [self.modeSwitchButton setImage:[self.configure.modeSwitchConfigure.stateConfigure imageForState:mode == LRSMessageToolBarModeTextInput ? UIControlStateNormal : UIControlStateSelected] forState:UIControlStateNormal];
-
 }
 
 - (UIView *)bottomLine {

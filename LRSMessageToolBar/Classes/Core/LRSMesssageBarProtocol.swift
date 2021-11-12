@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc protocol LRSMessageToolBarTextInputDelegate: NSObjectProtocol {
+@objc public protocol LRSMessageToolBarTextInputDelegate: NSObjectProtocol {
 
     @objc optional
     func messageToolBarInputTextViewDidBeginEditing(bar: LRSMessageBar)
@@ -21,7 +21,7 @@ import Foundation
     func messageToolBarShouldBeginEditting(bar: LRSMessageBar) -> Bool
 }
 
-@objc protocol LRSMessageToolBarButtonsActionsDelegate: NSObjectProtocol {
+@objc public protocol LRSMessageToolBarButtonsActionsDelegate: NSObjectProtocol {
 
     @objc optional
     func messageToolBarButtonDidClicked(bar: LRSMessageBar, text: String)
@@ -37,8 +37,13 @@ import Foundation
     func messageToolBarDragOutRecordScope(bar: LRSMessageBar)
 }
 
-@objc protocol LRSMessageToolBarPositionDelegate: NSObjectProtocol {
+@objc public protocol LRSMessageToolBarPositionDelegate: NSObjectProtocol {
 
 }
 
-typealias LRSMesssageBarProtocol = LRSMessageToolBarPositionDelegate&LRSMessageToolBarButtonsActionsDelegate&LRSMessageToolBarTextInputDelegate
+@objc public protocol LRSMessageToolBarAudioPermissionDelegate: NSObjectProtocol {
+    @objc optional
+    func audioPermission() -> Bool
+}
+
+public typealias LRSMesssageBarProtocol = LRSMessageToolBarPositionDelegate&LRSMessageToolBarButtonsActionsDelegate&LRSMessageToolBarTextInputDelegate&LRSMessageToolBarAudioPermissionDelegate

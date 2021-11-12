@@ -21,15 +21,14 @@ import UIKit
         let memeAnimationOffset: CGFloat = 50
     }
 
-    private let configure: LRSMessageToolBarConfigure
-    private let toolBar: LRSMessageInputBar
+    @objc open weak var delegate: LRSMesssageBarProtocol?
+    @objc public let configure: LRSMessageToolBarConfigure
+    @objc public let toolBar: LRSMessageInputBar
+    @objc public lazy var memePackagesView = LRSMemePackagesView(frame: .zero, configures: LRSMessageToolBarHelper.allEmojis())
     private var mode: Mode = .normal
     private var memeBoardHeight: CGFloat = LRSMemePackagesView.boardHeight()
     private let uiConfigure = BarConfigure()
-
-    @objc weak var delegate: LRSMesssageBarProtocol?
-
-    private lazy var memePackagesView = LRSMemePackagesView(frame: .zero, configures: LRSMessageToolBarHelper.allEmojis())
+    private var audioPermission = true
 
     var textViewHeight: CGFloat {
         let textView = toolBar.inputTextView
@@ -73,8 +72,35 @@ import UIKit
             sendMessage()
             animationHiddenMemePackagesView()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.animationResignFirstResponder(duration: 0.3)
+                animationResignFirstResponder(duration: 0.3)
             }
+        }
+
+        toolBar.recordingBtn.touchBegan = { [unowned self] button in
+            if let permission = delegate?.audioPermission?() {
+                audioPermission = permission
+            }
+            guard audioPermission == true else {
+                toolBar.recordingBtn.isSelected = false
+                return
+            }
+            delegate?.messageToolBarBeganToSpeak(bar: self)
+        }
+
+        toolBar.recordingBtn.touchEnd = { [unowned self] _ in
+            delegate?.messageToolBarEndSpeaking(bar: self)
+        }
+
+        toolBar.recordingBtn.dragEnter = { [unowned self] _ in
+            delegate?.messageToolBarDragEnterRecordScope(bar: self)
+        }
+
+        toolBar.recordingBtn.dragOutside = { [unowned self] _ in
+            delegate?.messageToolBarDragOutRecordScope(bar: self)
+        }
+
+        toolBar.recordingBtn.dragOutsideRelease = { [unowned self] _ in
+            delegate?.messageToolBarSlideTopToCancelRecording(bar: self)
         }
 
         memePackagesView.buildUI()
@@ -94,7 +120,6 @@ import UIKit
             }
         case .textInput:
             toolBarPosition()
-//            plus(offset: )
             break
         }
     }
@@ -143,74 +168,6 @@ import UIKit
         toolBar.inputTextView.resignFirstResponder()
     }
 }
-//    - (LRSMemePackagesView *)memePackagesView {
-//        if (!_memePackagesView) {
-//            _memePackagesView = [[LRSMemePackagesView alloc] initWithFrame:CGRectZero configures:[LRSMessageToolBarHelper allEmojis]];
-//            __weak typeof(self) weakSelf = self;
-//            _memePackagesView.itemHandler = ^(LRSMemeSinglePage *view, LRSMemePackageConfigureItem *item) {
-//                NSString *chatText = weakSelf.toolBar.inputTextView.text;
-//                weakSelf.toolBar.inputTextView.text = [NSString stringWithFormat:@"%@%@", chatText ?: @"", item.emojiValue];
-//                [weakSelf textViewDidChange:weakSelf.toolBar.inputTextView];
-//            };
-//            _memePackagesView.backspaceHandler = ^(LRSMemeSinglePage *view) {
-//                [weakSelf.toolBar.inputTextView deleteBackward];
-//            };
-//            _memePackagesView.sendOutHandler = ^(LRSMemePackgaesView *view) {
-//                [weakSelf sendOut_];
-//            };
-//        }
-//        return _memePackagesView;
-//    }
-//
-//    - (LRSMessageInputBar *)toolBar {
-//        if (!_toolBar) {
-//            _toolBar = [LRSMessageInputBar toolBarWithConfigure:self.configure];
-//            _toolBar.backgroundColor = [UIColor whiteColor];
-//            _toolBar.layer.shadowColor = [[UIColor blackColor] CGColor];
-//            _toolBar.layer.shadowOffset = CGSizeMake(0, -2 * [LRSMessageToolBarHelper scale]);
-//            _toolBar.layer.shadowRadius = 5.0 * [LRSMessageToolBarHelper scale];
-//            _toolBar.layer.shadowOpacity = 0.1;
-//            _toolBar.inputTextView.delegate = self;
-//            __weak typeof(self) weakSelf = self;
-//            _toolBar.recordingBtn.touchBegan = ^(LRSMessageToolBarRecordButton *button) {
-//                NSLog(@"按下按钮,开始录音");
-//                micphonePerPermission_ = [self.datasource audioPermission];
-//                if (!micphonePerPermission_) {
-//                    weakSelf.toolBar.recordingBtn.selected = false;
-//                    return;
-//                }
-//                if (weakSelf.delegate && [self.delegate respondsToSelector:@selector(messageToolBarBeganToSpeak:)]) {
-//                    [weakSelf.delegate messageToolBarBeganToSpeak:weakSelf];
-//                }
-//            };
-//            _toolBar.recordingBtn.touchEnd = ^(LRSMessageToolBarRecordButton *button) {
-//                NSLog(@"结束录音");
-//                if ([weakSelf.delegate respondsToSelector:@selector(messageToolBarEndSpeaking:)]) {
-//                    [weakSelf.delegate messageToolBarEndSpeaking:weakSelf];
-//                }
-//            };
-//            _toolBar.recordingBtn.dragEnter = ^(LRSMessageToolBarRecordButton *button) {
-//                NSLog(@"区域划入");
-//                if ([weakSelf.delegate respondsToSelector:@selector(messageToolBarDragEnterRecordScope)]) {
-//                    [weakSelf.delegate messageToolBarDragEnterRecordScope:weakSelf];
-//                }
-//            };
-//            _toolBar.recordingBtn.dragOutside = ^(LRSMessageToolBarRecordButton *button) {
-//                NSLog(@"区域划出");
-//                if ([weakSelf.delegate respondsToSelector:@selector(messageToolBarDragOutRecordScope)]) {
-//                    [weakSelf.delegate messageToolBarDragOutRecordScope:weakSelf];
-//                }
-//            };
-//            _toolBar.recordingBtn.dragOutsideRelease = ^(LRSMessageToolBarRecordButton *button) {
-//                NSLog(@"区域划出松手");
-//                if ([weakSelf.delegate respondsToSelector:@selector(messageToolBarSlideTopToCancelRecording:)]) {
-//                    [weakSelf.delegate messageToolBarSlideTopToCancelRecording:weakSelf];
-//                }
-//            };
-//        }
-//        return _toolBar;
-//    }
-
 
 extension LRSMessageBar: UITextViewDelegate {
 
@@ -292,7 +249,6 @@ private extension UIView {
     }
 
 }
-
 
 private extension LRSMessageBar {
 
