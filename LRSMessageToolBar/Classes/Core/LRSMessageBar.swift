@@ -169,18 +169,18 @@ import UIKit
     private func addObservers() {
         toolBar.inputTextView.delegate = self
 
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIKeyboardWillShow, object: nil, queue: .main) {[unowned self] noti in
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {[unowned self] noti in
             let info = noti.userInfo
-            let duration = info?[UIKeyboardAnimationDurationUserInfoKey] as? Double
-            let to = info?[UIKeyboardFrameEndUserInfoKey] as? CGRect
+            let duration = info?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
+            let to = info?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
             animationBecomeFirstResponder(duration: duration ?? 0.3, bottomHeight: to?.size.height ?? 100)
             mode = .keyboard
         }
 
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIKeyboardWillHide, object: nil, queue: .main) {[unowned self] noti in
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {[unowned self] noti in
             if mode == .keyboard {
                 let info = noti.userInfo
-                let duration = info?[UIKeyboardAnimationDurationUserInfoKey] as? Double
+                let duration = info?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
                 animationResignFirstResponder(duration: duration ?? 0.3)
             }
         }

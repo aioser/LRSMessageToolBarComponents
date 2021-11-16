@@ -3,6 +3,6 @@ use_frameworks!
 platform :ios, '11.0'
 
 target 'LRSMessageToolBar_Example' do
-  pod 'LRSMessageToolBarComponents', :path => '../'
+  pod 'LRSMessageToolBarComponents', :path => '../', :modular_headers => true
   pod 'SnapKit'
 end
