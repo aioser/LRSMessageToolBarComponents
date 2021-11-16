@@ -129,7 +129,7 @@
     if (!_imagePickerButtonStateConfigure) {
         _imagePickerButtonStateConfigure = [[LRSMessageToolBarButtonStateConfigure alloc] init];
         [_imagePickerButtonStateConfigure setImage:[LRSMessageToolBarHelper imageNamed:@"im_pic"] forState:(UIControlStateNormal)];
-        [_imagePickerButtonStateConfigure setImage:[LRSMessageToolBarHelper imageNamed:@"im_pic_selected"] forState:(UIControlStateNormal)];
+        [_imagePickerButtonStateConfigure setImage:[LRSMessageToolBarHelper imageNamed:@"im_pic_selected"] forState:(UIControlStateSelected)];
     }
     return _imagePickerButtonStateConfigure;
 }

@@ -54,6 +54,37 @@ import UIKit
         addObservers()
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        print("dealloc")
+    }
+
+    @discardableResult public override func resignFirstResponder() -> Bool {
+        if mode == .keyboard {
+            toolBar.inputTextView.resignFirstResponder()
+        } else if mode == .meme {
+            animationHiddenMemePackagesView()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.animationResignFirstResponder(duration: 0.3)
+            }
+        }
+        mode = .normal
+        return super.resignFirstResponder()
+    }
+
+    @discardableResult public override func becomeFirstResponder() -> Bool {
+        if mode == .normal {
+            if toolBar.mode == .textInput {
+                toolBar.inputTextView.becomeFirstResponder()
+            } else {
+
+            }
+        } else if mode == .meme {
+            onSwithMemeMode(button: toolBar.faceButton)
+        }
+        return true
+    }
+
     private func buildUI() {
         toolBar.frame = CGRect(x: 0, y: 0, width: LRSMessageToolBarHelper.screenWidth(), height: self.textViewHeight)
         addSubview(toolBar)
@@ -176,6 +207,7 @@ extension LRSMessageBar: UITextViewDelegate {
             var memeRect = self.memePackagesView.frame
             memeRect.origin.y = self.textViewHeight + self.memeBoardHeight
             self.memePackagesView.frame = memeRect
+            self.toolBar.bottomLine.alpha = 0
         }
     }
 
@@ -185,6 +217,9 @@ extension LRSMessageBar: UITextViewDelegate {
 
     public func textViewDidEndEditing(_ textView: UITextView) {
         delegate?.messageToolBarInputTextViewDidEndEditing(bar: self)
+        UIView.animate(withDuration: 0.1) {
+            self.toolBar.bottomLine.alpha = 1
+        }
     }
 
     public func textViewDidChangeSelection(_ textView: UITextView) {
@@ -213,10 +248,11 @@ extension LRSMessageBar: UITextViewDelegate {
 
     public func textViewDidChange(_ textView: UITextView) {
         let length = configure.textViewConfigure.acceptLength
-        guard textView.text.count < length else {
-            return
+        if textView.text.count < length {
+
+        } else {
+            textView.text = String(textView.text.prefix(length))
         }
-        textView.text = String(textView.text.prefix(length))
         let offset = toolBarPosition()
         plus(offset: offset)
         if mode == .meme {
