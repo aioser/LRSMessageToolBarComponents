@@ -41,18 +41,19 @@ TODO: Add long description of the pod here.
   end
   s.subspec 'Helper' do |helper|
       helper.source_files = 'LRSMessageToolBar/Classes/Helper/**/*'
+      helper.dependency 'Then'
       helper.resource_bundles = {
           'LRSMessageToolBar' => ['LRSMessageToolBar/Assets/*']
       }
   end
   s.subspec 'InputBar' do |input|
       input.source_files = 'LRSMessageToolBar/Classes/InputBar/**/*'
-      input.dependency 'Masonry', '~> 1.1.0'
+      input.dependency 'SnapKit'
       input.dependency 'LRSMessageToolBarComponents/Helper'
   end
-  s.subspec 'Core' do |input|
-      input.source_files = 'LRSMessageToolBar/Classes/Core/**/*'
-      input.dependency 'LRSMessageToolBarComponents/Emoji'
-      input.dependency 'LRSMessageToolBarComponents/InputBar'
+  s.subspec 'Core' do |core|
+      core.source_files = 'LRSMessageToolBar/Classes/Core/**/*'
+      core.dependency 'LRSMessageToolBarComponents/Emoji'
+      core.dependency 'LRSMessageToolBarComponents/InputBar'
   end
 end

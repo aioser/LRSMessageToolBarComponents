@@ -22,33 +22,54 @@ import UIKit
     }
 
     @objc open weak var delegate: LRSMesssageBarProtocol?
-    @objc public let configure: LRSMessageToolBarConfigure
     @objc public let toolBar: LRSMessageInputBar
-    @objc public lazy var memePackagesView = LRSMemePackagesView(frame: .zero, configures: LRSMessageToolBarHelper.allEmojis())
+
+    private let configure: LRSMessageToolBarConfigure
+
+    private lazy var itemHandler: LRSMemeSinglePage.ItemHandler = { page, item in
+        self.toolBar.inputTextView.text += item!.emojiValue
+        NotificationCenter.default.post(name: UITextView.textDidChangeNotification, object: self.toolBar.inputTextView)
+        let offset = self.toolBarPosition()
+        self.plus(offset: offset)
+        self.memePackagesView.y(to: self.memePackagesView.frame.origin.y - offset)
+    }
+
+    private lazy var deleteHandler: LRSMemeSinglePage.ItemHandler = { _, _ in
+        self.toolBar.inputTextView.deleteBackward()
+    }
+
+    private lazy var confirmHandler: LRSMemePackagesView.ItemHandler = { _ in
+        self.sendMessage()
+    }
+
+    private lazy var memePackagesView = LRSMemePackagesView(itemHandler: itemHandler, deleteHandler: deleteHandler, confirmHandler: confirmHandler)
+
     private var mode: Mode = .normal
-    private var memeBoardHeight: CGFloat = LRSMemePackagesView.boardHeight()
+    private var memeBoardHeight: CGFloat {
+        return memePackagesView.boardHeight
+    }
     private let uiConfigure = BarConfigure()
     private var audioPermission = true
 
     var textViewHeight: CGFloat {
         let textView = toolBar.inputTextView
         let height = textView.sizeThatFits(textView.bounds.size).height
-        let minHeight = configure.textViewConfigure.minHeight
-        let maxHeight = configure.textViewConfigure.maxHeight
+        let minHeight = configure.textView.minHeight
+        let maxHeight = configure.textView.maxHeight
         return min(maxHeight, max(minHeight, height))
     }
 
-    @objc public init(frame: CGRect, configure: LRSMessageToolBarConfigure = .default()) {
+    @objc public init(frame: CGRect, configure: LRSMessageToolBarConfigure) {
         self.configure = configure
-        toolBar = LRSMessageInputBar.toolBar(with: configure)
+        toolBar = LRSMessageInputBar(frame: .zero, configure: configure)
         super.init(frame: frame)
         buildUI()
         addObservers()
     }
 
     required init?(coder: NSCoder) {
-        configure = .default()
-        toolBar = LRSMessageInputBar.toolBar(with: configure)
+        configure = .default
+        toolBar = LRSMessageInputBar(frame: .zero, configure: configure)
         super.init(coder: coder)
         buildUI()
         addObservers()
@@ -74,7 +95,7 @@ import UIKit
 
     @discardableResult public override func becomeFirstResponder() -> Bool {
         if mode == .normal {
-            if toolBar.mode == .textInput {
+            if toolBar.mode == .input {
                 toolBar.inputTextView.becomeFirstResponder()
             } else {
 
@@ -86,22 +107,10 @@ import UIKit
     }
 
     private func buildUI() {
-        toolBar.frame = CGRect(x: 0, y: 0, width: LRSMessageToolBarHelper.screenWidth(), height: self.textViewHeight)
+        toolBar.frame = CGRect(x: 0, y: 0, width: UIScreen.main.width, height: textViewHeight)
         addSubview(toolBar)
-        memePackagesView.itemHandler = {[unowned self] _, item in
-            toolBar.inputTextView.text += item.emojiValue
-            let offset = toolBarPosition()
-            plus(offset: offset)
-            memePackagesView.y(to: memePackagesView.frame.origin.y - offset)
-        }
 
-        memePackagesView.backspaceHandler = {[unowned self] _ in
-            toolBar.inputTextView.deleteBackward()
-        }
-
-        memePackagesView.confirmHandler = {[unowned self] _ in
-            sendMessage()
-        }
+        memePackagesView.buildUI(configures: LRSMessageToolBarHelper.emojis() ?? [])
 
         toolBar.recordingBtn.touchBegan = { [unowned self] button in
             if let permission = delegate?.audioPermission?() {
@@ -130,7 +139,6 @@ import UIKit
             delegate?.messageToolBarSlideTopToCancelRecording(bar: self)
         }
 
-        memePackagesView.buildUI()
         toolBar.faceButton.addTarget(self, action: #selector(onSwithMemeMode(button:)), for: .touchUpInside)
         toolBar.modeSwitchButton.addTarget(self, action: #selector(onSwithButtonClicked(button:)), for: .touchUpInside)
     }
@@ -145,7 +153,7 @@ import UIKit
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.animationResignFirstResponder(duration: 0.3)
             }
-        case .textInput:
+        case .input:
             toolBarPosition()
             break
         }
@@ -247,7 +255,7 @@ extension LRSMessageBar: UITextViewDelegate {
     }
 
     public func textViewDidChange(_ textView: UITextView) {
-        let length = configure.textViewConfigure.acceptLength
+        let length = configure.textView.acceptLength
         if textView.text.count < length {
 
         } else {
@@ -303,7 +311,7 @@ private extension LRSMessageBar {
     }
 
     private func animationResignFirstResponder(duration: TimeInterval) {
-        let y = LRSMessageToolBarHelper.screenHeight() - toolBar.bounds.size.height - LRSMessageToolBarHelper.safeAreaHeight()
+        let y = UIScreen.main.height - toolBar.bounds.size.height - LRSMessageToolBarHelper.safeAreaHeight
         var rect = frame
         rect.origin.y = y
         UIView.animate(withDuration: duration) {
@@ -332,7 +340,7 @@ private extension LRSMessageBar {
 
     private func animationBecomeFirstResponder(duration: TimeInterval, bottomHeight: CGFloat) {
         let height = textViewHeight + bottomHeight + uiConfigure.toolBottomOffset
-        let y = LRSMessageToolBarHelper.screenHeight() - height
+        let y = UIScreen.main.height - height
         var rect = frame
         rect.origin.y = y
         rect.size.height = height

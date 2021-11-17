@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		388110F88A7007410B9AF155 /* Pods_LRSMessageToolBar_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5469C8662FDBC7E5CBBBBF /* Pods_LRSMessageToolBar_Example.framework */; };
+		220AA92437F67DE272A07746 /* Pods_LRSMessageToolBar_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B7EE7303BF3DC90AF72B66 /* Pods_LRSMessageToolBar_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		8748CC0F274510570003937E /* OC_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 8748CC0E274510570003937E /* OC_Test.m */; };
 		87E941F1273A71800066BD70 /* LRSMessageToolBarComponents.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 87E941F0273A71800066BD70 /* LRSMessageToolBarComponents.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0F0E6193E3BBC51B1D480795 /* Pods-LRSMessageToolBar_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LRSMessageToolBar_Example.debug.xcconfig"; path = "Target Support Files/Pods-LRSMessageToolBar_Example/Pods-LRSMessageToolBar_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		4D5469C8662FDBC7E5CBBBBF /* Pods_LRSMessageToolBar_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LRSMessageToolBar_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* LRSMessageToolBar_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LRSMessageToolBar_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -30,8 +30,11 @@
 		73A233453EF39C853168ADE3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		7FCA1CE01AC29092010D4427 /* Pods-LRSMessageToolBar_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LRSMessageToolBar_Tests.debug.xcconfig"; path = "Target Support Files/Pods-LRSMessageToolBar_Tests/Pods-LRSMessageToolBar_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		8739773027326F1D0091D7C8 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
+		8748CC0D274510570003937E /* OC_Test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OC_Test.h; sourceTree = "<group>"; };
+		8748CC0E274510570003937E /* OC_Test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OC_Test.m; sourceTree = "<group>"; };
 		87E941F0273A71800066BD70 /* LRSMessageToolBarComponents.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LRSMessageToolBarComponents.podspec; path = ../LRSMessageToolBarComponents.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9520F1D35C11BB53F5F07795 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		E0B7EE7303BF3DC90AF72B66 /* Pods_LRSMessageToolBar_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LRSMessageToolBar_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E64B7482AD09C3AF8BEB18E6 /* Pods-LRSMessageToolBar_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LRSMessageToolBar_Tests.release.xcconfig"; path = "Target Support Files/Pods-LRSMessageToolBar_Tests/Pods-LRSMessageToolBar_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F12FCF94694AF5EA6C661FD6 /* Pods_LRSMessageToolBar_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LRSMessageToolBar_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -41,7 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				388110F88A7007410B9AF155 /* Pods_LRSMessageToolBar_Example.framework in Frameworks */,
+				220AA92437F67DE272A07746 /* Pods_LRSMessageToolBar_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,8 +65,8 @@
 		5A0EB54DF34B3BA48ADB2141 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4D5469C8662FDBC7E5CBBBBF /* Pods_LRSMessageToolBar_Example.framework */,
 				F12FCF94694AF5EA6C661FD6 /* Pods_LRSMessageToolBar_Tests.framework */,
+				E0B7EE7303BF3DC90AF72B66 /* Pods_LRSMessageToolBar_Example.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -97,6 +100,8 @@
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				8739773027326F1D0091D7C8 /* Bridge.h */,
+				8748CC0D274510570003937E /* OC_Test.h */,
+				8748CC0E274510570003937E /* OC_Test.m */,
 			);
 			name = "Example for LRSMessageToolBar";
 			path = LRSMessageToolBar;
@@ -131,7 +136,7 @@
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				27891F5D00ABF55A90E6EA2A /* [CP] Embed Pods Frameworks */,
+				C114D78AEF597AB37F124892 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -155,7 +160,7 @@
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = 3EZ8YQY6LK;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1300;
 					};
 				};
 			};
@@ -193,28 +198,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		27891F5D00ABF55A90E6EA2A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LRSMessageToolBar_Example/Pods-LRSMessageToolBar_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/LRSMessageToolBarComponents/LRSMessageToolBarComponents.framework",
-				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LRSMessageToolBarComponents.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LRSMessageToolBar_Example/Pods-LRSMessageToolBar_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6BBEE22DC368B5C281CE4D76 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -237,6 +220,30 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C114D78AEF597AB37F124892 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LRSMessageToolBar_Example/Pods-LRSMessageToolBar_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/LRSMessageToolBarComponents/LRSMessageToolBarComponents.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LRSMessageToolBarComponents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LRSMessageToolBar_Example/Pods-LRSMessageToolBar_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -244,6 +251,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8748CC0F274510570003937E /* OC_Test.m in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
@@ -386,7 +394,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/LRSMessageToolBar/Bridge.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -404,7 +412,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/LRSMessageToolBar/Bridge.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

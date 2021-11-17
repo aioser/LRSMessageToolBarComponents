@@ -7,17 +7,17 @@
 //
 
 import UIKit
-import LRSMessageToolBarComponents
 import SnapKit
+import LRSMessageToolBarComponents
 
 class ViewController: UIViewController {
-    let bar = LRSMessageBar(frame: CGRect(x: 0, y: LRSMessageToolBarHelper.screenHeight() - 33, width: LRSMessageToolBarHelper.screenWidth(), height: 33), configure: .default())
+    let bar = LRSMessageBar(frame: CGRect(x: 0, y: 400, width: 414, height: 33), configure: .default)
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(bar)
         bar.becomeFirstResponder()
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         view.addGestureRecognizer(tap)
+        view.addSubview(bar)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
