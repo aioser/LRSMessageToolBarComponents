@@ -75,6 +75,12 @@ internal extension UIImage {
 
 internal extension UIColor {
     static func color(named: String) -> UIColor? {
-        return UIColor(named: named, in: .now, compatibleWith: nil)
+        if #available(iOS 11.0, *) {
+            return UIColor(named: named, in: .now, compatibleWith: nil)
+        } else {
+            return nil
+            // Fallback on earlier versions
+        }
     }
 }
+
