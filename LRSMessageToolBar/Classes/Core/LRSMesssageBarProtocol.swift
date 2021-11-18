@@ -9,32 +9,28 @@ import Foundation
 
 @objc public protocol LRSMessageToolBarTextInputDelegate: NSObjectProtocol {
 
-    @objc optional
-    func messageToolBarInputTextViewDidBeginEditing(bar: LRSMessageBar)
+    @objc optional func messageToolBarInputTextViewDidBeginEditing(bar: LRSMessageBar)
 
-    func messageToolBarInputTextViewWillBeginEditing(bar: LRSMessageBar)
+    @objc optional func messageToolBarInputTextViewWillBeginEditing(bar: LRSMessageBar)
 
-    func messageToolBarInputTextViewDidEndEditing(bar: LRSMessageBar)
+    @objc optional func messageToolBarInputTextViewDidEndEditing(bar: LRSMessageBar)
 
-    func messageToolBarDidClickedReturn(bar: LRSMessageBar, text: String)
+    @objc optional func messageToolBarDidClickedReturn(bar: LRSMessageBar, text: String)
     
-    func messageToolBarShouldBeginEditting(bar: LRSMessageBar) -> Bool
+    @objc optional func messageToolBarShouldBeginEditting(bar: LRSMessageBar) -> Bool
 }
 
 @objc public protocol LRSMessageToolBarButtonsActionsDelegate: NSObjectProtocol {
-
-    @objc optional
-    func messageToolBarButtonDidClicked(bar: LRSMessageBar, text: String)
-
-    func messageToolBarBeganToSpeak(bar: LRSMessageBar)
-
-    func messageToolBarEndSpeaking(bar: LRSMessageBar)
-
-    func messageToolBarSlideTopToCancelRecording(bar: LRSMessageBar)
-
-    func messageToolBarDragEnterRecordScope(bar: LRSMessageBar)
     
-    func messageToolBarDragOutRecordScope(bar: LRSMessageBar)
+    @objc optional func messageToolBarBeganToSpeak(bar: LRSMessageBar)
+
+    @objc optional func messageToolBarEndSpeaking(bar: LRSMessageBar)
+
+    @objc optional func messageToolBarSlideTopToCancelRecording(bar: LRSMessageBar)
+
+    @objc optional func messageToolBarDragEnterRecordScope(bar: LRSMessageBar)
+    
+    @objc optional func messageToolBarDragOutRecordScope(bar: LRSMessageBar)
 }
 
 @objc public protocol LRSMessageToolBarPositionDelegate: NSObjectProtocol {

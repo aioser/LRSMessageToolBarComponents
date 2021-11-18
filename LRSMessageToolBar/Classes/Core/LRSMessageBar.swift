@@ -127,23 +127,23 @@ import UIKit
                 toolBar.recordingBtn.isSelected = false
                 return
             }
-            delegate?.messageToolBarBeganToSpeak(bar: self)
+            delegate?.messageToolBarBeganToSpeak?(bar: self)
         }
 
         toolBar.recordingBtn.touchEnd = { [unowned self] _ in
-            delegate?.messageToolBarEndSpeaking(bar: self)
+            delegate?.messageToolBarEndSpeaking?(bar: self)
         }
 
         toolBar.recordingBtn.dragEnter = { [unowned self] _ in
-            delegate?.messageToolBarDragEnterRecordScope(bar: self)
+            delegate?.messageToolBarDragEnterRecordScope?(bar: self)
         }
 
         toolBar.recordingBtn.dragOutside = { [unowned self] _ in
-            delegate?.messageToolBarDragOutRecordScope(bar: self)
+            delegate?.messageToolBarDragOutRecordScope?(bar: self)
         }
 
         toolBar.recordingBtn.dragOutsideRelease = { [unowned self] _ in
-            delegate?.messageToolBarSlideTopToCancelRecording(bar: self)
+            delegate?.messageToolBarSlideTopToCancelRecording?(bar: self)
         }
 
         toolBar.faceButton.addTarget(self, action: #selector(onSwithMemeMode(button:)), for: .touchUpInside)
@@ -203,7 +203,7 @@ import UIKit
 
     private func sendMessage() {
         let str = toolBar.inputTextView.text.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "\r", with: "")
-        delegate?.messageToolBarDidClickedReturn(bar: self, text: str)
+        delegate?.messageToolBarDidClickedReturn?(bar: self, text: str)
         toolBar.inputTextView.text = ""
         toolBar.inputTextView.setContentOffset(.zero, animated: true)
         let offset = toolBarPosition()
@@ -227,11 +227,11 @@ extension LRSMessageBar: UITextViewDelegate {
     }
 
     public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        return delegate?.messageToolBarShouldBeginEditting(bar: self) ?? true
+        return delegate?.messageToolBarShouldBeginEditting?(bar: self) ?? true
     }
 
     public func textViewDidEndEditing(_ textView: UITextView) {
-        delegate?.messageToolBarInputTextViewDidEndEditing(bar: self)
+        delegate?.messageToolBarInputTextViewDidEndEditing?(bar: self)
         UIView.animate(withDuration: 0.1) {
             self.toolBar.bottomLine.alpha = 1
         }
