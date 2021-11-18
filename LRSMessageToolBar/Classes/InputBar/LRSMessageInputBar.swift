@@ -26,7 +26,7 @@ import SnapKit
         $0.addTarget(self, action: #selector(modeSwitchClick(button: )), for: .touchUpInside)
     }
 
-    @objc lazy var recordingBtn: LRSMessageToolBarRecordButton =  LRSMessageToolBarRecordButton(frame: .zero).then {
+    @objc public lazy var recordingBtn: LRSMessageToolBarRecordButton =  LRSMessageToolBarRecordButton(frame: .zero).then {
         $0.build(state: configure.recordButton.state)
         $0.isHidden = true
         $0.clickTime = configure.recordButton.clickTime

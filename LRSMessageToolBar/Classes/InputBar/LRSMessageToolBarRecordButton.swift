@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-@objc class LRSMessageToolBarRecordButton: UIControl {
+@objc public class LRSMessageToolBarRecordButton: UIControl {
 
     typealias Action = (_ button: LRSMessageToolBarRecordButton) -> ()
 
