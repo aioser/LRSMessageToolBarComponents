@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class LRSMessageToolBarRecordButton: UIControl {
+@objc class LRSMessageToolBarRecordButton: UIControl {
 
     typealias Action = (_ button: LRSMessageToolBarRecordButton) -> ()
 
@@ -20,6 +20,7 @@ class LRSMessageToolBarRecordButton: UIControl {
 
     var clickTime: TimeInterval = 0
     var areaY: CGFloat = 0
+    @objc public var inArea: Bool = false
 
     private lazy var backgroundImageView = UIImageView().then {
         addSubview($0)
@@ -36,7 +37,6 @@ class LRSMessageToolBarRecordButton: UIControl {
     }
     private lazy var stateValue = LRSMessageToolBarConfigure.ButtonState()
 
-    private var inArea: Bool = false
     override var isSelected: Bool {
         willSet {
             if newValue == true {
