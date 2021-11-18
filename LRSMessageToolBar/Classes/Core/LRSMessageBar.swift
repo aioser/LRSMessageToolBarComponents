@@ -211,6 +211,7 @@ import UIKit
         if mode == .meme {
             memePackagesView.y(to: memePackagesView.frame.origin.y - offset)
         }
+        delegate?.sendOut(bar: self, text: str)
     }
 }
 

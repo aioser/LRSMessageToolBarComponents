@@ -33,8 +33,8 @@ import Foundation
     @objc optional func messageToolBarDragOutRecordScope(bar: LRSMessageBar)
 }
 
-@objc public protocol LRSMessageToolBarPositionDelegate: NSObjectProtocol {
-
+@objc public protocol LRSMessageBarDelegate: NSObjectProtocol {
+    @objc func sendOut(bar: LRSMessageBar, text: String)
 }
 
 @objc public protocol LRSMessageToolBarAudioPermissionDelegate: NSObjectProtocol {
@@ -42,4 +42,4 @@ import Foundation
     func audioPermission() -> Bool
 }
 
-public typealias LRSMesssageBarProtocol = LRSMessageToolBarPositionDelegate&LRSMessageToolBarButtonsActionsDelegate&LRSMessageToolBarTextInputDelegate&LRSMessageToolBarAudioPermissionDelegate
+public typealias LRSMesssageBarProtocol = LRSMessageBarDelegate&LRSMessageToolBarButtonsActionsDelegate&LRSMessageToolBarTextInputDelegate&LRSMessageToolBarAudioPermissionDelegate
