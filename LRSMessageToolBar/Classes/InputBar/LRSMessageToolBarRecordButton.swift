@@ -37,7 +37,7 @@ import SnapKit
     }
     private lazy var stateValue = LRSMessageToolBarConfigure.ButtonState()
 
-    override var isSelected: Bool {
+    public override var isSelected: Bool {
         willSet {
             if newValue == true {
                 backgroundImageView.image = stateValue.image(for: .selected)
@@ -60,12 +60,12 @@ import SnapKit
         inArea = true
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         LRSMessageToolBarRecordButton.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(begin), with: nil, afterDelay: clickTime, inModes: [.common])
     }
 
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         LRSMessageToolBarRecordButton.cancelPreviousPerformRequests(withTarget: self)
         print("Touch End");
         if inArea == true {
@@ -76,7 +76,7 @@ import SnapKit
         isSelected = false
     }
 
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         guard let point = touch?.location(in: self) else {
             dragOutside?(self)
@@ -96,7 +96,7 @@ import SnapKit
         inArea = check
     }
 
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         LRSMessageToolBarRecordButton.cancelPreviousPerformRequests(withTarget: self)
         print("Touch Cancel");
         touchEnd?(self);
