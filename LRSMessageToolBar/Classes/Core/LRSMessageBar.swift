@@ -27,11 +27,7 @@ import UIKit
     private let configure: LRSMessageToolBarConfigure
 
     private lazy var itemHandler: LRSMemeSinglePage.ItemHandler = { page, item in
-        self.toolBar.inputTextView.text += item!.emojiValue
-        NotificationCenter.default.post(name: UITextView.textDidChangeNotification, object: self.toolBar.inputTextView)
-        let offset = self.toolBarPosition()
-        self.plus(offset: offset)
-        self.memePackagesView.y(to: self.memePackagesView.frame.origin.y - offset)
+        self.append(text: item?.emojiValue)
     }
 
     private lazy var deleteHandler: LRSMemeSinglePage.ItemHandler = { _, _ in
@@ -78,6 +74,17 @@ import UIKit
     deinit {
         NotificationCenter.default.removeObserver(self)
         print("dealloc")
+    }
+
+    @objc public func append(text: String?) {
+        guard let value = text else {
+            return
+        }
+        self.toolBar.inputTextView.text += value
+        NotificationCenter.default.post(name: UITextView.textDidChangeNotification, object: self.toolBar.inputTextView)
+        let offset = self.toolBarPosition()
+        self.plus(offset: offset)
+        self.memePackagesView.y(to: self.memePackagesView.frame.origin.y - offset)
     }
 
     @objc @discardableResult public override func resignFirstResponder() -> Bool {
