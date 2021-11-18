@@ -8,7 +8,7 @@
 import UIKit
 import Then
 
-class LRSPlaceholderTextView: UITextView {
+public class LRSPlaceholderTextView: UITextView {
 
     var placeHolder: String? {
         set {
@@ -31,7 +31,7 @@ class LRSPlaceholderTextView: UITextView {
         $0.font = .systemFont(ofSize: 16)
     }
 
-    override var font: UIFont? {
+    public override var font: UIFont? {
         willSet {
             placeHolderLabel.font = newValue
         }

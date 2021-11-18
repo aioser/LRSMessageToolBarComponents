@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-public class LRSMessageInputBar: UIView {
+@objc public class LRSMessageInputBar: UIView {
 
     enum Mode {
         case input
@@ -33,7 +33,7 @@ public class LRSMessageInputBar: UIView {
         $0.areaY = configure.textView.minHeight
     }
 
-    lazy var inputTextView: LRSPlaceholderTextView = LRSPlaceholderTextView().then {
+    @objc public lazy var inputTextView: LRSPlaceholderTextView = LRSPlaceholderTextView().then {
         $0.font = .systemFont(ofSize: 16)
         $0.autoresizingMask = .flexibleHeight
         $0.returnKeyType = .send

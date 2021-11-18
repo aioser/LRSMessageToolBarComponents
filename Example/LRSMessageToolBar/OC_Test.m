@@ -7,14 +7,12 @@
 //
 
 #import "OC_Test.h"
-#import <LRSMessageToolBarComponents/LRSMessageToolBarComponents-Swift.h>
 
 @implementation OC_Test
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        LRSMessageBar *bar = [[LRSMessageBar alloc] initWithFrame:(CGRectZero) configure:[LRSMessageToolBarConfigure new]];
-        bar.delegate = self;
+        
     }
     return self;
 }

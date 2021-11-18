@@ -8,11 +8,11 @@
 import UIKit
 import Then
 
-class LRSMessageToolBarHelper: NSObject {
-    static var scale: Float = 1
-    static var safeAreaHeight: CGFloat = 0
+@objc class LRSMessageToolBarHelper: NSObject {
+    @objc static var scale: Float = 1
+    @objc static var safeAreaHeight: CGFloat = 0
 
-    static func emojis() -> [LRSMemePackageConfigure]? {
+    @objc static func emojis() -> [LRSMemePackageConfigure]? {
         var plistName: String
         if #available(iOS 12.1, *) {
             plistName = "EmojisList_ios>12.1"

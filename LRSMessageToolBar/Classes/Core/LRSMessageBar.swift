@@ -80,7 +80,7 @@ import UIKit
         print("dealloc")
     }
 
-    @discardableResult public override func resignFirstResponder() -> Bool {
+    @objc @discardableResult public override func resignFirstResponder() -> Bool {
         if mode == .keyboard {
             toolBar.inputTextView.resignFirstResponder()
         } else if mode == .meme {
@@ -93,7 +93,7 @@ import UIKit
         return super.resignFirstResponder()
     }
 
-    @discardableResult public override func becomeFirstResponder() -> Bool {
+    @objc @discardableResult public override func becomeFirstResponder() -> Bool {
         if mode == .normal {
             if toolBar.mode == .input {
                 toolBar.inputTextView.becomeFirstResponder()
