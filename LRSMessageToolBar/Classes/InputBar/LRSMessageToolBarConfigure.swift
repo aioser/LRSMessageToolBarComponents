@@ -13,6 +13,7 @@ import UIKit
         var state: ButtonState
         var clickTime: TimeInterval
         var height: CGFloat = 36
+        var top: CGFloat = 6
     }
 
     struct InputTextView {

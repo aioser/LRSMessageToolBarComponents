@@ -156,7 +156,7 @@ import UIKit
         case .record:
             mode = .normal
             toolBar.inputTextView.resignFirstResponder()
-            toolBar.height(to: 35)
+            toolBar.height(to: configure.textView.minHeight + configure.textView.topMargin * 2)
             animationHiddenMemePackagesView()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.animationResignFirstResponder(duration: 0.3)

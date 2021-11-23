@@ -90,7 +90,7 @@ import SnapKit
 
         recordingBtn.snp.makeConstraints { make in
             make.left.equalTo(modeSwitchButton.snp.right).offset(configure.textView.leftMargin)
-            make.centerY.equalToSuperview()
+            make.top.equalTo(configure.recordButton.top)
             make.right.equalTo(imagePickButton.snp.left).offset(-configure.textView.topMargin)
             make.height.equalTo(configure.recordButton.height)
         }
