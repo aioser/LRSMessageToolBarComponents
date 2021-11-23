@@ -75,7 +75,7 @@ import UIKit
         $0.title(NSAttributedString(string: "松开 结束", attributes: titleAttribute), for: .selected)
     }, clickTime: 0)
 
-    lazy var textView: InputTextView = InputTextView(leftMargin: 15, topMargin: 14, acceptLength: 200, placeholder: "输入聊天内容...", placeHolderColor: UIColor.color(named: "Color_16_13_25") ?? .lightGray, maxHeight: 88, minHeight: 20)
+    lazy var textView: InputTextView = InputTextView(leftMargin: 15, topMargin: 14, acceptLength: 200, placeholder: "输入聊天内容...", placeHolderColor: .lightGray, maxHeight: 88, minHeight: 20)
 
     lazy var buttons: ActionButton = ActionButton(rightButtonsMargin: 13, rightButtonsXSpacing: 13, buttonSize: CGSize(width: 24, height: 24), emojiButtonState: ButtonState().then{
         $0.image(.image(named: "information_expression_normal"), for: .normal)
