@@ -9,7 +9,7 @@ import UIKit
 import Then
 
 @objc public class LRSMessageToolBarHelper: NSObject {
-    @objc public static var safeAreaHeight: CGFloat = 0
+    @objc public static var safeAreaHeight: CGFloat = 33
 
     @objc static func emojis() -> [LRSMemePackageConfigure]? {
         var plistName: String

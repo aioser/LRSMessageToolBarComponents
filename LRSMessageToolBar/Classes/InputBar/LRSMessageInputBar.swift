@@ -35,12 +35,13 @@ import SnapKit
 
     @objc public lazy var inputTextView: LRSPlaceholderTextView = LRSPlaceholderTextView().then {
         $0.font = .systemFont(ofSize: 16)
-        $0.autoresizingMask = .flexibleHeight
         $0.returnKeyType = .send
         $0.enablesReturnKeyAutomatically = true
         $0.backgroundColor = .clear
         $0.keyboardType = .default
         $0.undoManager?.disableUndoRegistration()
+        $0.textContainer.lineFragmentPadding = 0
+        $0.textContainerInset = .zero
         $0.placeHolder = configure.textView.placeholder
         $0.placeHolderColor = configure.textView.placeHolderColor
     }
@@ -89,15 +90,16 @@ import SnapKit
 
         recordingBtn.snp.makeConstraints { make in
             make.left.equalTo(modeSwitchButton.snp.right).offset(configure.textView.leftMargin)
-            make.top.equalTo(configure.textView.topMargin)
+            make.centerY.equalToSuperview()
             make.right.equalTo(imagePickButton.snp.left).offset(-configure.textView.topMargin)
-            make.height.equalTo(configure.textView.minHeight)
+            make.height.equalTo(configure.recordButton.height)
         }
 
         inputTextView.snp.makeConstraints { make in
-            make.left.top.equalTo(recordingBtn)
+            make.left.equalTo(recordingBtn)
+            make.top.equalTo(configure.textView.topMargin)
             make.right.equalTo(faceButton.snp.left).offset(-configure.textView.topMargin)
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(-configure.textView.topMargin)
         }
 
         imagePickButton.snp.makeConstraints { make in
@@ -105,10 +107,11 @@ import SnapKit
             make.centerY.equalTo(modeSwitchButton)
             make.width.height.equalTo(modeSwitchButton)
         };
+
         faceButton.snp.makeConstraints { make in
             make.size.equalTo(imagePickButton)
             make.centerY.equalTo(imagePickButton)
-            make.right.equalTo(imagePickButton.snp.left).offset(configure.buttons.rightButtonsXSpacing)
+            make.right.equalTo(imagePickButton.snp.left).offset(-configure.buttons.rightButtonsXSpacing)
         };
     }
 

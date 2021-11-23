@@ -26,7 +26,7 @@ public class LRSPlaceholderTextView: UITextView {
             return placeHolderLabel.textColor
         }
     }
-    lazy var placeHolderLabel: UILabel = UILabel(frame: CGRect(x: 10, y: 6, width: UIScreen.main.width, height: 20)).then{
+    lazy var placeHolderLabel: UILabel = UILabel(frame: CGRect(x: 10, y: 0, width: UIScreen.main.width, height: 20)).then{
         $0.textColor = .lightGray
         $0.font = .systemFont(ofSize: 16)
     }

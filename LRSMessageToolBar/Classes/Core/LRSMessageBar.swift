@@ -16,7 +16,7 @@ import UIKit
     }
 
     struct BarConfigure {
-        let toolBottomOffset: CGFloat = 10
+        let toolBottomOffset: CGFloat = 0
         let memeAnimationDuration: TimeInterval = 0.3
         let memeAnimationOffset: CGFloat = 50
     }
@@ -52,7 +52,7 @@ import UIKit
         let height = textView.sizeThatFits(textView.bounds.size).height
         let minHeight = configure.textView.minHeight
         let maxHeight = configure.textView.maxHeight
-        return min(maxHeight, max(minHeight, height))
+        return min(maxHeight, max(minHeight, height) + configure.textView.topMargin * 2)
     }
 
     @objc public init(frame: CGRect, configure: LRSMessageToolBarConfigure) {
@@ -239,7 +239,7 @@ extension LRSMessageBar: UITextViewDelegate {
     }
 
     public func textViewDidChangeSelection(_ textView: UITextView) {
-        guard let end = textView.selectedTextRange?.end else {
+        guard let end = textView.selectedTextRange?.end, textView.selectedRange.length != 0 else {
             return
         }
         let r = textView.caretRect(for: end)
