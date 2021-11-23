@@ -78,7 +78,7 @@ import SnapKit
         addSubview(bottomLine)
 
         bottomLine.snp.makeConstraints { make in
-            make.bottom.equalTo(inputTextView.snp.bottom)
+            make.bottom.equalToSuperview()
             make.left.right.equalTo(inputTextView)
             make.height.equalTo(0.5)
         }
@@ -134,6 +134,11 @@ import SnapKit
         modeSwitchButton.setImage(configure.modeSwitch.state.image(for: m == .input ? .normal: .selected), for: .normal)
     }
 
+    public func scrollToEnd() {
+        DispatchQueue.main.async {[unowned self] in
+            inputTextView.setContentOffset(CGPoint(x: 0, y: inputTextView.contentSize.height - inputTextView.bounds.height), animated: true)
+        }
+    }
 }
 
 

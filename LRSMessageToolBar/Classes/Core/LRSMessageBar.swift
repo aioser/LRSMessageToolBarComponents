@@ -80,11 +80,12 @@ import UIKit
         guard let value = text else {
             return
         }
-        self.toolBar.inputTextView.text += value
-        NotificationCenter.default.post(name: UITextView.textDidChangeNotification, object: self.toolBar.inputTextView)
-        let offset = self.toolBarPosition()
-        self.plus(offset: offset)
-        self.memePackagesView.y(to: self.memePackagesView.frame.origin.y - offset)
+        toolBar.inputTextView.text += value
+        NotificationCenter.default.post(name: UITextView.textDidChangeNotification, object: toolBar.inputTextView)
+        let offset = toolBarPosition()
+        plus(offset: offset)
+        memePackagesView.y(to: memePackagesView.frame.origin.y - offset)
+        toolBar.scrollToEnd()
     }
 
     @objc @discardableResult public override func resignFirstResponder() -> Bool {
