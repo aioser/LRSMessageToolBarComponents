@@ -61,6 +61,8 @@ import UIKit
         super.init(frame: frame)
         buildUI()
         addObservers()
+        let ges = UITapGestureRecognizer(target: self, action: nil)
+        addGestureRecognizer(ges)
     }
 
     required init?(coder: NSCoder) {

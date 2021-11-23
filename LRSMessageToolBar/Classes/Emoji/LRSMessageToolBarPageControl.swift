@@ -56,7 +56,7 @@ class LRSMessageToolBarPageControl: UIControl {
     }
 
     func size() -> CGSize {
-        return CGSize(width: CGFloat(numberOfPages) * indicatorDiameter + CGFloat(numberOfPages - 1) * indicatorSpace, height: max(44.0, indicatorDiameter + 4))
+        return CGSize(width: CGFloat(numberOfPages) * indicatorDiameter + CGFloat(numberOfPages - 1) * indicatorSpace, height: max(20, indicatorDiameter + 4))
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
