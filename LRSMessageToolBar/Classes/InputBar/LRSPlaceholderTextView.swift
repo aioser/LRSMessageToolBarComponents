@@ -37,6 +37,15 @@ public class LRSPlaceholderTextView: UITextView {
         }
     }
 
+    public override var text: String! {
+        willSet {
+            guard let value = newValue else {
+                return
+            }
+            placeHolderLabel.isHidden = value.count > 0
+        }
+    }
+
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         addSubview(placeHolderLabel)
