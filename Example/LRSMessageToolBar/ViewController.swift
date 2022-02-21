@@ -11,11 +11,10 @@ import SnapKit
 import LRSMessageToolBarComponents
 
 class ViewController: UIViewController {
-    let bar = LRSMessageBar(frame: CGRect(x: 0, y: 400, width: 414, height: 33), configure: .default)
+    let bar = LRSMessageBar(frame: CGRect(x: 0, y: 400, width: UIScreen.main.bounds.size.width, height: 33), configure: .default)
     override func viewDidLoad() {
         super.viewDidLoad()
         bar.becomeFirstResponder()
-        bar.backgroundColor = .red
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         view.addGestureRecognizer(tap)
         view.addSubview(bar)

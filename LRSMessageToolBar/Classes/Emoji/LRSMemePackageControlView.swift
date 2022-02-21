@@ -25,6 +25,7 @@ class LRSMemePackageControlView: UIView {
 
     lazy var pageControl: LRSMessageToolBarPageControl = LRSMessageToolBarPageControl(numberOfPages: page).then {
         $0.offColor = .color(named: "Color_192") ?? .lightGray
+        $0.onColor = .black
         $0.backgroundColor = .clear
         $0.addTarget(self, action: #selector(pageControlTouched(control:)), for: .valueChanged)
     }
@@ -122,7 +123,7 @@ class LRSMemePackageControlView: UIView {
                 make.bottom.equalTo(contentView).offset(-scrollViewEdgeInsets.bottom);
                 make.width.equalTo(viewWidth - (scrollViewEdgeInsets.left + scrollViewEdgeInsets.right));
                 if (offset == list.count - 1) {
-                    make.right.equalTo(contentView);
+                    make.right.equalTo(contentView).offset(-scrollViewEdgeInsets.right);
                 }
                 make.height.equalTo(boarderHeight);
             }
