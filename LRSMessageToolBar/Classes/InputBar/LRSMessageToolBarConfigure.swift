@@ -86,8 +86,8 @@ import UIKit
     })
     
     lazy var modeSwitch: ModeSwitchButton = ModeSwitchButton(leftMargin: 12, buttonSize: CGSize(width: 28, height: 28), state: ButtonState().then{
-        $0.image(.image(named: "information_keyboard_normal"), for: .normal)
-        $0.image(.image(named: "im_voice_selected"), for: .selected)
+        $0.image(.image(named: "information_keyboard_normal"), for: .selected)
+        $0.image(.image(named: "information_tel_normal"), for: .normal)
     })
 
     public static let `default` = LRSMessageToolBarConfigure()
