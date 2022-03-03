@@ -1,15 +1,15 @@
 PODS:
-  - LRSMessageToolBarComponents (0.2.2):
-    - LRSMessageToolBarComponents/Core (= 0.2.2)
-  - LRSMessageToolBarComponents/Core (0.2.2):
+  - LRSMessageToolBarComponents (0.2.3):
+    - LRSMessageToolBarComponents/Core (= 0.2.3)
+  - LRSMessageToolBarComponents/Core (0.2.3):
     - LRSMessageToolBarComponents/Emoji
     - LRSMessageToolBarComponents/InputBar
-  - LRSMessageToolBarComponents/Emoji (0.2.2):
+  - LRSMessageToolBarComponents/Emoji (0.2.3):
     - LRSMessageToolBarComponents/Helper
     - SnapKit
-  - LRSMessageToolBarComponents/Helper (0.2.2):
+  - LRSMessageToolBarComponents/Helper (0.2.3):
     - Then
-  - LRSMessageToolBarComponents/InputBar (0.2.2):
+  - LRSMessageToolBarComponents/InputBar (0.2.3):
     - LRSMessageToolBarComponents/Helper
     - SnapKit
   - SnapKit (5.0.1)
@@ -29,10 +29,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LRSMessageToolBarComponents: 50848c0fa636d0f61a97530a3397c758765422d9
+  LRSMessageToolBarComponents: a6ec42c28cd23ec6ae900bc14b48743d617e8a1c
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: d460f81dee3b7a23c08ff642c1d6923449d73b62
+PODFILE CHECKSUM: 9d2927d75cd2db2a5cb61a3da046e3b04b57780a
 
 COCOAPODS: 1.10.2

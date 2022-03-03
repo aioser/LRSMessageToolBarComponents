@@ -1,4 +1,4 @@
-module Pods_LRSMessageToolBar_Example {
+framework module Pods_LRSMessageToolBar_Example {
   umbrella header "Pods-LRSMessageToolBar_Example-umbrella.h"
 
   export *

@@ -14,16 +14,10 @@ class LRSMemePackageConfigure: NSObject {
     }
     
     var emojis: [Item]
-    var coverImageName: String
-    var row: Int
-    var column: Int
-    let key: String
+    var columnCount: Int
 
-    init(key: String, emojis:[Item], coverImageName: String, row: Int, column: Int) {
-        self.key = key
+    init(emojis:[Item], columnCount: Int) {
         self.emojis = emojis
-        self.coverImageName = coverImageName
-        self.row = row
-        self.column = column
+        self.columnCount = columnCount
     }
 }

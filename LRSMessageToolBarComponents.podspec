@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'LRSMessageToolBarComponents'
-  s.version          = '0.2.2'
+  s.version          = '0.2.3'
   s.summary          = 'A short description of LRSMessageToolBarComponents.'
 
 # This description is used to generate tags and improve search results.
@@ -35,7 +35,7 @@ TODO: Add long description of the pod here.
   s.swift_versions = '5.0'
 
   s.subspec 'Emoji' do |emoji|
-      emoji.source_files = 'LRSMessageToolBar/Classes/Emoji/**/*'
+      emoji.source_files = 'LRSMessageToolBar/Classes/Emoji/Portrait/*'
       emoji.dependency 'SnapKit'
       emoji.dependency 'LRSMessageToolBarComponents/Helper'
   end

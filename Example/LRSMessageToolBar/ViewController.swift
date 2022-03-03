@@ -12,11 +12,19 @@ import LRSMessageToolBarComponents
 
 class ViewController: UIViewController {
     let bar = LRSMessageBar(frame: CGRect(x: 0, y: 400, width: UIScreen.main.bounds.size.width, height: 33), configure: .default)
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        bar.becomeFirstResponder()
+
+        let backgroundView = UIView()
+        view.addSubview(backgroundView)
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
-        view.addGestureRecognizer(tap)
+        backgroundView.addGestureRecognizer(tap)
+        backgroundView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
+        bar.becomeFirstResponder()
         view.addSubview(bar)
         // Do any additional setup after loading the view, typically from a nib.
     }

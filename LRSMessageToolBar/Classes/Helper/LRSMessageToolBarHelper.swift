@@ -11,7 +11,7 @@ import Then
 @objc public class LRSMessageToolBarHelper: NSObject {
     @objc public static var safeAreaHeight: CGFloat = 33
 
-    @objc static func emojis() -> [LRSMemePackageConfigure]? {
+    @objc static func emojis() -> LRSMemePackageConfigure? {
         var plistName: String
         if #available(iOS 12.1, *) {
             plistName = "EmojisList_ios>12.1"
@@ -29,8 +29,8 @@ import Then
         let emojis = values.map { value in
             return LRSMemePackageConfigure.Item(emojiValue: value)
         }
-        let configure = LRSMemePackageConfigure(key: "default", emojis: emojis, coverImageName: "information_expression_normal", row: 4, column: 9)
-        return [configure]
+        let configure = LRSMemePackageConfigure(emojis: emojis, columnCount: 8)
+        return configure
     }
 
     static func sizeOfEmoji(key: String) -> CGSize {

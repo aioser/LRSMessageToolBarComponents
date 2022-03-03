@@ -21,26 +21,33 @@ import UIKit
         let memeAnimationOffset: CGFloat = 50
     }
 
-    @objc open weak var delegate: LRSMesssageBarProtocol?
-    @objc public let toolBar: LRSMessageInputBar
+    @objc
+    open weak var delegate: LRSMesssageBarProtocol?
+
+    @objc
+    public let toolBar: LRSMessageInputBar
 
     private let configure: LRSMessageToolBarConfigure
 
-    private lazy var itemHandler: LRSMemeSinglePage.ItemHandler = { page, item in
-        self.append(text: item?.emojiValue)
+    private lazy var itemHandler: LRSMemePackagesContentView.ItemHandler = {[weak self] page, item in
+        self?.append(text: item?.emojiValue)
     }
 
-    private lazy var deleteHandler: LRSMemeSinglePage.ItemHandler = { _, _ in
-        self.toolBar.inputTextView.deleteBackward()
+    private lazy var deleteHandler: LRSMemePackagesView.ItemHandler = {[weak self] _, _ in
+        self?.toolBar.inputTextView.deleteBackward()
     }
 
-    private lazy var confirmHandler: LRSMemePackagesView.ItemHandler = { _ in
-        self.sendMessage()
+    private lazy var confirmHandler: LRSMemePackagesView.ItemHandler = {[weak self] _,_  in
+        self?.sendMessage()
     }
 
     private lazy var memePackagesView = LRSMemePackagesView(itemHandler: itemHandler, deleteHandler: deleteHandler, confirmHandler: confirmHandler)
 
-    private var mode: Mode = .normal
+    private var mode: Mode = .normal {
+        willSet {
+            toolBar.faceButton.isSelected = newValue == .meme
+        }
+    }
     private var memeBoardHeight: CGFloat {
         return memePackagesView.boardHeight
     }
@@ -61,8 +68,6 @@ import UIKit
         super.init(frame: frame)
         buildUI()
         addObservers()
-        let ges = UITapGestureRecognizer(target: self, action: nil)
-        addGestureRecognizer(ges)
     }
 
     required init?(coder: NSCoder) {
@@ -75,7 +80,7 @@ import UIKit
 
     deinit {
         NotificationCenter.default.removeObserver(self)
-        print("dealloc")
+        print("LRSMessageBar -- dealloc")
     }
 
     @objc public func append(text: String?) {
@@ -95,8 +100,8 @@ import UIKit
             toolBar.inputTextView.resignFirstResponder()
         } else if mode == .meme {
             animationHiddenMemePackagesView()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.animationResignFirstResponder(duration: 0.3)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {[weak self] in
+                self?.animationResignFirstResponder(duration: 0.3)
             }
         }
         mode = .normal
@@ -120,7 +125,7 @@ import UIKit
         toolBar.frame = CGRect(x: 0, y: 0, width: UIScreen.main.width, height: textViewHeight)
         addSubview(toolBar)
 
-        memePackagesView.buildUI(configures: LRSMessageToolBarHelper.emojis() ?? [])
+        memePackagesView.buildUI(configures: LRSMessageToolBarHelper.emojis() ?? LRSMemePackageConfigure(emojis: [], columnCount: 9))
 
         toolBar.recordingBtn.touchBegan = { [unowned self] button in
             if let permission = delegate?.audioPermission?() {
@@ -160,8 +165,8 @@ import UIKit
             toolBar.inputTextView.resignFirstResponder()
             toolBar.height(to: configure.textView.minHeight + configure.textView.topMargin * 2)
             animationHiddenMemePackagesView()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.animationResignFirstResponder(duration: 0.3)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {[weak self] in
+                self?.animationResignFirstResponder(duration: 0.3)
             }
         case .input:
             toolBarPosition()
@@ -174,8 +179,8 @@ import UIKit
             mode = .meme
             toolBar.inputTextView.resignFirstResponder()
             animationBecomeFirstResponder(duration: uiConfigure.memeAnimationDuration, bottomHeight: self.memeBoardHeight)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.animationShowMemePackagesView()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {[weak self] in
+                self?.animationShowMemePackagesView()
             }
         } else {
             toolBar.inputTextView.becomeFirstResponder()

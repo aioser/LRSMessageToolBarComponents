@@ -7,7 +7,8 @@
 
 import UIKit
 
-@objc public class LRSMessageToolBarConfigure: NSObject {
+@objc
+public class LRSMessageToolBarConfigure: NSObject {
 
     struct RecordButton {
         var state: ButtonState
@@ -78,10 +79,10 @@ import UIKit
     lazy var textView: InputTextView = InputTextView(leftMargin: 15, topMargin: 14, acceptLength: 200, placeholder: "输入聊天内容...", placeHolderColor: .lightGray, maxHeight: 88, minHeight: 20)
 
     lazy var buttons: ActionButton = ActionButton(rightButtonsMargin: 13, rightButtonsXSpacing: 13, buttonSize: CGSize(width: 24, height: 24), emojiButtonState: ButtonState().then{
-        $0.image(.image(named: "information_expression_normal"), for: .normal)
-        $0.image(.image(named: "information_expression_selected"), for: .selected)
+        $0.image(.image(named: "information_expression_selected"), for: .normal)
+        $0.image(.image(named: "im_emoji_keyboard"), for: .selected)
     }, imagePickerButtonState: ButtonState().then{
-        $0.image(.image(named: "im_pic"), for: .normal)
+        $0.image(.image(named: "im_pic_selected"), for: .normal)
         $0.image(.image(named: "im_pic_selected"), for: .selected)
     })
     

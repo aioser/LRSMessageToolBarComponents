@@ -12,14 +12,14 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		7A27C3B9AD172C856A0FD27C /* Pods_LRSMessageToolBar_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F1740CA7844513E51F8C21 /* Pods_LRSMessageToolBar_Example.framework */; };
 		8748CC0F274510570003937E /* OC_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 8748CC0E274510570003937E /* OC_Test.m */; };
 		87E941F1273A71800066BD70 /* LRSMessageToolBarComponents.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 87E941F0273A71800066BD70 /* LRSMessageToolBarComponents.podspec */; };
-		9583C0DDDA7DBE3D77A6B49C /* libPods-LRSMessageToolBar_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D785B08BA551D532EBEB651 /* libPods-LRSMessageToolBar_Example.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0F0E6193E3BBC51B1D480795 /* Pods-LRSMessageToolBar_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LRSMessageToolBar_Example.debug.xcconfig"; path = "Target Support Files/Pods-LRSMessageToolBar_Example/Pods-LRSMessageToolBar_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		5D785B08BA551D532EBEB651 /* libPods-LRSMessageToolBar_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LRSMessageToolBar_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		49F1740CA7844513E51F8C21 /* Pods_LRSMessageToolBar_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LRSMessageToolBar_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* LRSMessageToolBar_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LRSMessageToolBar_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,7 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9583C0DDDA7DBE3D77A6B49C /* libPods-LRSMessageToolBar_Example.a in Frameworks */,
+				7A27C3B9AD172C856A0FD27C /* Pods_LRSMessageToolBar_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,7 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				F12FCF94694AF5EA6C661FD6 /* Pods_LRSMessageToolBar_Tests.framework */,
-				5D785B08BA551D532EBEB651 /* libPods-LRSMessageToolBar_Example.a */,
+				49F1740CA7844513E51F8C21 /* Pods_LRSMessageToolBar_Example.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -136,7 +136,7 @@
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				B8F7162B0B89C4720C9E6820 /* [CP] Copy Pods Resources */,
+				01163988F9C032B48BC33447 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -198,6 +198,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		01163988F9C032B48BC33447 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LRSMessageToolBar_Example/Pods-LRSMessageToolBar_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/LRSMessageToolBarComponents/LRSMessageToolBarComponents.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LRSMessageToolBarComponents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LRSMessageToolBar_Example/Pods-LRSMessageToolBar_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6BBEE22DC368B5C281CE4D76 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -218,24 +240,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B8F7162B0B89C4720C9E6820 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LRSMessageToolBar_Example/Pods-LRSMessageToolBar_Example-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/LRSMessageToolBarComponents/LRSMessageToolBar.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LRSMessageToolBar.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LRSMessageToolBar_Example/Pods-LRSMessageToolBar_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
