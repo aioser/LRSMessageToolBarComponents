@@ -1,3 +1,5 @@
+source 'https://github.com/CocoaPods/Specs.git'
+source 'git@coding.jiamiantech.com:ce/LRSDevRepo/LRSRepos.git'
 
 use_frameworks!
 platform :ios, '11.0'

@@ -11,7 +11,10 @@ PODS:
     - Then
   - LRSMessageToolBarComponents/InputBar (0.2.3):
     - LRSMessageToolBarComponents/Helper
+    - LRSPlaceholderTextView
     - SnapKit
+  - LRSPlaceholderTextView (0.1.1):
+    - Then
   - SnapKit (5.0.1)
   - Then (2.7.0)
 
@@ -20,6 +23,8 @@ DEPENDENCIES:
   - SnapKit
 
 SPEC REPOS:
+  "git@coding.jiamiantech.com:ce/LRSDevRepo/LRSRepos.git":
+    - LRSPlaceholderTextView
   trunk:
     - SnapKit
     - Then
@@ -29,10 +34,11 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LRSMessageToolBarComponents: a6ec42c28cd23ec6ae900bc14b48743d617e8a1c
+  LRSMessageToolBarComponents: 63e6bf2eb7f8849b154cb4acbf21fa90bcac7a94
+  LRSPlaceholderTextView: 6678570f8ee0463de2586b3b74fe76d502ff6a75
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 9d2927d75cd2db2a5cb61a3da046e3b04b57780a
+PODFILE CHECKSUM: 67ea694b8f79382e5e056e9c30909a3c2279d4e3
 
 COCOAPODS: 1.10.2

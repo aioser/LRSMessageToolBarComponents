@@ -176,11 +176,13 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/LRSMessageToolBarComponents/LRSMessageToolBarComponents.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/LRSPlaceholderTextView/LRSPlaceholderTextView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Then/Then.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/LRSMessageToolBarComponents/LRSMessageToolBarComponents.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/LRSPlaceholderTextView/LRSPlaceholderTextView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Then/Then.framework"
 fi

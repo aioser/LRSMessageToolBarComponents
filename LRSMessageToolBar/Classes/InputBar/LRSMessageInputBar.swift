@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import LRSPlaceholderTextView
 
 @objc public class LRSMessageInputBar: UIView {
 

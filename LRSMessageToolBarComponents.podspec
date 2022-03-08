@@ -50,6 +50,7 @@ TODO: Add long description of the pod here.
       input.source_files = 'LRSMessageToolBar/Classes/InputBar/**/*'
       input.dependency 'SnapKit'
       input.dependency 'LRSMessageToolBarComponents/Helper'
+      input.dependency 'LRSPlaceholderTextView'
   end
   s.subspec 'Core' do |core|
       core.source_files = 'LRSMessageToolBar/Classes/Core/**/*'

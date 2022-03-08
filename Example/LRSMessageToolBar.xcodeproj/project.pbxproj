@@ -206,12 +206,14 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LRSMessageToolBar_Example/Pods-LRSMessageToolBar_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/LRSMessageToolBarComponents/LRSMessageToolBarComponents.framework",
+				"${BUILT_PRODUCTS_DIR}/LRSPlaceholderTextView/LRSPlaceholderTextView.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LRSMessageToolBarComponents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LRSPlaceholderTextView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
 			);
