@@ -41,7 +41,9 @@ import UIKit
         self?.sendMessage()
     }
 
-    private lazy var memePackagesView = LRSMemePackagesView(itemHandler: itemHandler, deleteHandler: deleteHandler, confirmHandler: confirmHandler)
+    private lazy var memePackagesView = LRSMemePackagesView(itemHandler: itemHandler, deleteHandler: deleteHandler, confirmHandler: confirmHandler).then {
+        $0.backgroundColor = .color(named: "Color_244")
+    }
 
     private var mode: Mode = .normal {
         willSet {

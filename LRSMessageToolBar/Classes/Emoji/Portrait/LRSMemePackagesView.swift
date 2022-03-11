@@ -60,7 +60,7 @@ class LRSMemePackagesView: UIView {
             make.edges.equalToSuperview()
         }
 
-        let actionsViewSize = CGSize(width: 150, height: 76 + LRSMessageToolBarHelper.safeAreaHeight)
+        let actionsViewSize = CGSize(width: 150, height: 84 + LRSMessageToolBarHelper.safeAreaHeight)
         actionsView.snp.makeConstraints { make in
             make.right.bottom.equalToSuperview()
             make.size.equalTo(actionsViewSize)
