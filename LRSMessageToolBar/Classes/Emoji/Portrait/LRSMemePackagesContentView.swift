@@ -11,6 +11,10 @@ import SnapKit
 class LRSMemePackagesContentView: UIControl {
     public typealias ItemHandler = (LRSMemePackagesContentView, LRSMemePackageConfigure.Item?) -> ()
 
+    let itemSize = CGSize(width: 42, height: 42)
+
+    let leftPadding: CGFloat = 11
+
     class EmojiItem: UIControl {
         var configure: LRSMemePackageConfigure.Item?
 
@@ -58,10 +62,10 @@ class LRSMemePackagesContentView: UIControl {
         }
         items.removeAll()
 
-        let itemSize = CGSize(width: 42, height: 42)
-        let leftPadding: CGFloat = 11
+        let itemSize = self.itemSize
+        let leftPadding = self.leftPadding
         let topPadding: CGFloat = 15
-        let itemXInterval = (UIScreen.main.width - CGFloat(configure.columnCount) * itemSize.width - leftPadding * 2) / CGFloat(configure.columnCount - 1)
+        let itemXInterval = itemXInterval(itemSize: itemSize, leftPadding: leftPadding, configure: configure)
         let itemYInterval: CGFloat = 4
         configure.emojis.enumerated().forEach { (offset, element) in
             /// 计算当前 `offset` 所处的行和列
@@ -95,6 +99,11 @@ class LRSMemePackagesContentView: UIControl {
             items.append(item)
             item.addTarget(self, action: #selector(onClickedEmoji(button:)), for: .touchUpInside)
         }
+    }
+
+    func itemXInterval(itemSize: CGSize, leftPadding: CGFloat, configure: LRSMemePackageConfigure) -> CGFloat {
+        let itemXInterval = (UIScreen.main.width - CGFloat(configure.columnCount) * itemSize.width - leftPadding * 2) / CGFloat(configure.columnCount - 1)
+        return itemXInterval
     }
 
     @objc

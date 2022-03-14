@@ -60,7 +60,11 @@ class LRSMemePackagesView: UIView {
             make.edges.equalToSuperview()
         }
 
-        let actionsViewSize = CGSize(width: 150, height: 84 + LRSMessageToolBarHelper.safeAreaHeight)
+        let hiddenEmojiCount: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 2 : 3
+
+        let actionsViewWidth = memeContentView.leftPadding + memeContentView.itemSize.width * hiddenEmojiCount + memeContentView.itemXInterval(itemSize: memeContentView.itemSize, leftPadding: memeContentView.leftPadding, configure: configures) * (hiddenEmojiCount - 1) + 5;
+
+        let actionsViewSize = CGSize(width: actionsViewWidth, height: 84 + LRSMessageToolBarHelper.safeAreaHeight)
         actionsView.snp.makeConstraints { make in
             make.right.bottom.equalToSuperview()
             make.size.equalTo(actionsViewSize)

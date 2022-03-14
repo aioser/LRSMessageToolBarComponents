@@ -11,11 +11,12 @@ import SnapKit
 class LRSMemePackagesActionsView: UIView {
 
     lazy var sendButton: UIButton = UIButton(type: .custom).then {
-        $0.backgroundColor = .color(named: "Color_255_224_58")
+        $0.setBackgroundImage(UIImage.image(from: UIColor.color(named: "Color_255_224_58") ?? .red), for: .normal)
         $0.setTitle("发送", for: .normal)
         $0.setTitleColor(UIColor.color(named: "Color_30"), for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         $0.layer.cornerRadius = 5
+        $0.layer.masksToBounds = true
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.color(named: "Color_240_202_0")?.cgColor
     }
